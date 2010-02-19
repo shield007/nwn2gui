@@ -53,15 +53,12 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 	protected void createControl(JPanel parent) {	        
         parent.setLayout(new BorderLayout(5,5));
 
-//        JPanel panel = new JPanel();
-        Box panel = Box.createVerticalBox();
-//        panel.setLayout(new VerticalFlowLayout(5,VerticalFlowLayout.LEFT));
-//        panel.setLayout(new GridLayout(10, 1, 5, 5));
+        Box box = Box.createVerticalBox();
         JLabel lblGameDir = new JLabel("Neverwinter Nights 2 Game Directory:");
-        panel.add(lblGameDir);
+        box.add(lblGameDir);
         txtNWN2Dir = new FileChooseWidget(JFileChooser.DIRECTORIES_ONLY);        
-        panel.add(txtNWN2Dir);
-        panel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        box.add(txtNWN2Dir);
+        box.add(new JSeparator(SwingConstants.HORIZONTAL));
                 
         tlkList = new FileListWidget("TLK Files:", JFileChooser.FILES_ONLY, new FileFilter() {			
 			@Override
@@ -74,16 +71,16 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 				return f.isDirectory() || f.getName().toLowerCase().endsWith(".tlk");
 			}
 		});
-        panel.add(tlkList);
+        box.add(tlkList);
         
         iconList = new FileListWidget("Root icon directories:", JFileChooser.DIRECTORIES_ONLY, null); 
-        panel.add(iconList);
+        box.add(iconList);
         
         fontList = new FileListWidget("Font directories:", JFileChooser.DIRECTORIES_ONLY, null);
-        panel.add(fontList);
-        panel.add(Box.createVerticalGlue());
+        box.add(fontList);
+        box.add(Box.createVerticalGlue());
         
-        parent.add(panel,BorderLayout.CENTER);
+        parent.add(box,BorderLayout.CENTER);
     }
 	
 	@Override
