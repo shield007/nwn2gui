@@ -24,7 +24,10 @@ public class NWN2GuiSettings extends Settings {
 	private final static String PROP_GUI_FILE_LIST  ="PROP_GUI_FILE_LIST";
 	private static final String PROP_GUI_LAST_BROWSE_DIR = "PROP_GUI_LAST_BROWSE_DIR";
 	private static final String PROP_LOOK_AND_FEEL = "PROP_LOOK_AND_FEEL";
-	private static final String PROP_NWN2_DIR = "PROP_NWN2_DIR";
+	private static final String PROP_NWN2_DIR = "PROP_NWN2_DIR";	
+	public static final String PROP_EXTRA_TLKS = "PROP_EXTRA_TLKS";
+	public static final String PROP_EXTRA_FONT_DIRS = "PROP_EXTRA_FONT_DIRS";
+	public static final String PROP_EXTRA_ICON_DIRS = "PROP_EXTRA_ICON_DIRS";
 	
 	private static NWN2GuiSettings instance = null;
 	
@@ -86,9 +89,12 @@ public class NWN2GuiSettings extends Settings {
 		
 	}
 
-	public boolean getBoolean(String string, boolean defaultValue) {
-		//TODO implement this
-		return defaultValue;
+	public boolean getBoolean(String key, boolean defaultValue) {
+		return Boolean.parseBoolean(getString(key, String.valueOf(defaultValue)));		
+	}
+	
+	public void setBoolean(String key, boolean value) {
+		setString(key,String.valueOf(value));
 	}
 	
 }

@@ -133,4 +133,8 @@ public class FileListWidget extends JPanel {
 	public void addFile(File file) {
 		fileListModel.addFile(file);		
 	}
+
+	public void setFiles(List<File> fileList) {
+		fileListModel.setFiles(fileList);				
+	}
 }
