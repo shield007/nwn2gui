@@ -58,6 +58,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 	private CardLayout optionPanelLayout;
 	private JXHeader header;
 	private JList lstOptions;
+	private boolean settingsChanged = false;
 
 	public OptionsDialog(Frame parent) {
 		super(parent, "NWN2 GUI Options", true);
@@ -189,7 +190,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 
 	@Override
 	public void ok() {
-		apply();
+		apply();		
 		dispose();
 	}
 
@@ -198,6 +199,11 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 			panel.saveSettings(settings);
 		}
 		settings.save();
+		settingsChanged = true;
+	}
+	
+	public boolean hasSettingsChanged() {
+		return settingsChanged;
 	}
 	
 	private void loadSettings() {

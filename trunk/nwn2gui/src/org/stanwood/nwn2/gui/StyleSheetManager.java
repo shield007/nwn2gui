@@ -39,8 +39,7 @@ public class StyleSheetManager {
 	private Map<String, UIFontFamily> fonts;
 
 	private StyleSheetManager() {
-		uiObjects = new HashMap<String, UIObject>();
-		fonts = new HashMap<String, UIFontFamily>();
+		removeAllStyles();
 	}
 
 	public static synchronized StyleSheetManager getInstance() {
@@ -92,5 +91,10 @@ public class StyleSheetManager {
 	
 	public UIFontFamily getFontByName(String name) {
 		return fonts.get(name);
+	}
+	
+	public void removeAllStyles() {
+		uiObjects = new HashMap<String, UIObject>();
+		fonts = new HashMap<String, UIFontFamily>();
 	}
 }

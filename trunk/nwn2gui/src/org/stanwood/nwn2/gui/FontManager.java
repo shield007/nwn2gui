@@ -28,10 +28,10 @@ import org.stanwood.nwn2.gui.model.UIFont;
 public class FontManager {
 
 	private static FontManager fontManager;
-	private Map<String,Font>fonts = new HashMap<String,Font>();
+	private Map<String,Font>fonts;
 	
 	private FontManager() {
-		
+		removeAllFonts();	
 	}
 	
 	public synchronized static FontManager getInstance() {
@@ -55,5 +55,9 @@ public class FontManager {
 			font = baseFont.deriveFont(uiFont.getPointSize());
 		}
 		return font;
+	}
+	
+	public void removeAllFonts() {
+		fonts = new HashMap<String,Font>();
 	}
 }
