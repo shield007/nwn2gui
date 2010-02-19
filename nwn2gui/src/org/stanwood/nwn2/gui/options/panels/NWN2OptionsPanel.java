@@ -17,9 +17,11 @@
 package org.stanwood.nwn2.gui.options.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 
+import javax.swing.Box;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -51,12 +53,13 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 	protected void createControl(JPanel parent) {	        
         parent.setLayout(new BorderLayout(5,5));
 
-        JPanel panel = new JPanel();
+//        JPanel panel = new JPanel();
+        Box panel = Box.createVerticalBox();
 //        panel.setLayout(new VerticalFlowLayout(5,VerticalFlowLayout.LEFT));
-        panel.setLayout(new GridLayout(10, 1, 5, 5));
+//        panel.setLayout(new GridLayout(10, 1, 5, 5));
         JLabel lblGameDir = new JLabel("Neverwinter Nights 2 Game Directory:");
         panel.add(lblGameDir);
-        txtNWN2Dir = new FileChooseWidget(JFileChooser.DIRECTORIES_ONLY);
+        txtNWN2Dir = new FileChooseWidget(JFileChooser.DIRECTORIES_ONLY);        
         panel.add(txtNWN2Dir);
         panel.add(new JSeparator(SwingConstants.HORIZONTAL));
                 
@@ -78,6 +81,7 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
         
         fontList = new FileListWidget("Font directories:", JFileChooser.DIRECTORIES_ONLY, null);
         panel.add(fontList);
+        panel.add(Box.createVerticalGlue());
         
         parent.add(panel,BorderLayout.CENTER);
     }
