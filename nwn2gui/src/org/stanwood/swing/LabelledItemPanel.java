@@ -26,7 +26,9 @@ import javax.swing.JPanel;
 
 public class LabelledItemPanel extends JPanel
 {
-    /** The row to add the next labelled item to */
+ 	private static final long serialVersionUID = 752443665186359684L;
+ 	
+	/** The row to add the next labelled item to */
     private int myNextItemRow = 0;
 
     public LabelledItemPanel()

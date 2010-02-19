@@ -37,6 +37,8 @@ import org.stanwood.swing.icons.IconManager;
 
 public class FileListWidget extends JPanel {
 
+	private static final long serialVersionUID = -7126161586427319629L;
+	
 	private String title;	
 	private JList lstFiles;
 	private JButton cmdRemove;

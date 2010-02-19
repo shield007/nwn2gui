@@ -39,10 +39,11 @@ import javax.swing.JDialog;
  * Enter is pressed) and cancel() (called when Escape is pressed, or window
  * is closed).
  * @author Slava Pestov
- * @version $Id$
  */
 public abstract class EnhancedDialog extends JDialog
 {
+	private static final long serialVersionUID = -82443582204335154L;
+
 	public EnhancedDialog(Frame parent, String title, boolean modal)
 	{
 		super(parent,title,modal);
@@ -92,11 +93,13 @@ public abstract class EnhancedDialog extends JDialog
 	// Recursively adds our key listener to sub-components
 	class ContainerHandler extends ContainerAdapter
 	{
+		@Override
 		public void componentAdded(ContainerEvent evt)
 		{
 			componentAdded(evt.getChild());
 		}
 
+		@Override
 		public void componentRemoved(ContainerEvent evt)
 		{
 			componentRemoved(evt.getChild());
@@ -135,6 +138,7 @@ public abstract class EnhancedDialog extends JDialog
 
 	class KeyHandler extends KeyAdapter
 	{
+		@Override
 		public void keyPressed(KeyEvent evt)
 		{
 			if(evt.isConsumed())
@@ -174,6 +178,7 @@ public abstract class EnhancedDialog extends JDialog
 
 	class WindowHandler extends WindowAdapter
 	{
+		@Override
 		public void windowClosing(WindowEvent evt)
 		{
 			cancel();
