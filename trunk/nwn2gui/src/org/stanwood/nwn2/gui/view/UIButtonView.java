@@ -82,6 +82,7 @@ public class UIButtonView extends UIObjectView {
 		}		
 	}
 	
+	@Override
 	public void positionChanged() {
 		for (UIObjectView viewChild : children) {
 			viewChild.setX(getX());
