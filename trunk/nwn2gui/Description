@@ -1,0 +1,5 @@
+nwn2gui is a cross platform application to display Neverwinter Nights 2 GUI 
+XML files. These XML files are used to define all the user interface components 
+within the game. This tool is designed to help developers create and alter
+these files by giving them a easy way to preview their work before putting
+it into the game. 
