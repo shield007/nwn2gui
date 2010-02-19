@@ -17,8 +17,6 @@
 package org.stanwood.nwn2.gui.options.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.io.File;
 
 import javax.swing.Box;

@@ -27,12 +27,11 @@ public class NWN2IconManager {
 
 	private static NWN2IconManager instance = null;;
 	
-	private Map<String,String>iconsByName = new HashMap<String,String>();
-	
-	private Map<String,Image>iconCache = new HashMap<String,Image>();
+	private Map<String,String>iconsByName;	
+	private Map<String,Image>iconCache;
 	
 	private NWN2IconManager() {
-		
+		removeAllIcons();		
 	}
 	
 	public void addIconDir(File dir) throws FileNotFoundException {
@@ -80,5 +79,11 @@ public class NWN2IconManager {
 			iconCache.put(name,img);
 		}
 		return iconCache.get(name);
+	}
+
+	
+	public void removeAllIcons() {
+		iconsByName = new HashMap<String,String>();
+		iconCache = new HashMap<String,Image>();
 	}
 }

@@ -69,4 +69,13 @@ public class TLKManager {
 			parser.close();
 		}
 	}
+	
+	public void removeAllTlkFiles() {
+		try {
+			close();
+		} catch (IOException e) {
+			log.error("Unable to close tlk file: "+e.getMessage(),e);
+		}
+		parsers = new ArrayList<TLKParser>();
+	}
 }

@@ -21,6 +21,8 @@ import java.util.List;
 
 public class NWN2GuiSettings extends Settings {
 
+	
+	public static final File DEFAULT_NWN2_DIR = new File("C:"+File.separator+"Games"+File.separator+"Neverwinter Nights 2");
 	private final static String PROP_GUI_FILE_LIST  ="PROP_GUI_FILE_LIST";
 	private static final String PROP_GUI_LAST_BROWSE_DIR = "PROP_GUI_LAST_BROWSE_DIR";
 	private static final String PROP_LOOK_AND_FEEL = "PROP_LOOK_AND_FEEL";
@@ -96,5 +98,12 @@ public class NWN2GuiSettings extends Settings {
 	public void setBoolean(String key, boolean value) {
 		setString(key,String.valueOf(value));
 	}
+	
+	public void removeAllTlkFiles() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }
