@@ -16,7 +16,6 @@ import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.nwn2.gui.options.Settings;
 import org.stanwood.swing.FileChooseWidget;
 import org.stanwood.swing.FileListWidget;
-import org.stanwood.swing.layouts.VerticalFlowLayout;
 
 public class NWN2OptionsPanel extends AbstractOptionDialog{
 
