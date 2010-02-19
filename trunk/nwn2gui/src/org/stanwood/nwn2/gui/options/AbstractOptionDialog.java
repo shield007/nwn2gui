@@ -21,6 +21,7 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public abstract class AbstractOptionDialog extends JPanel implements IOptionsPanel {
 
@@ -33,6 +34,8 @@ public abstract class AbstractOptionDialog extends JPanel implements IOptionsPan
 	private void init() {
 		setLayout(new BorderLayout());				
 		JScrollPane scroll = new JScrollPane();		
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));		
 		createControl(panel);
