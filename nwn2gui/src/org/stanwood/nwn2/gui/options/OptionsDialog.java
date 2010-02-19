@@ -40,7 +40,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.util.WindowUtils;
-import org.stanwood.nwn2.gui.options.panels.NWN2OptionsPanel;
+import org.stanwood.nwn2.gui.options.panels.NWN2ContentPanel;
 import org.stanwood.swing.EnhancedDialog;
 import org.stanwood.swing.icons.IconManager;
 
@@ -65,7 +65,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		
 		createControl();
 
-		addPreferencePanel(new NWN2OptionsPanel());
+		addPreferencePanel(new NWN2ContentPanel());
 		loadSettings();
 		
 		lstOptions.setSelectedIndex(0);
@@ -76,7 +76,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		setLocation(WindowUtils.getPointForCentering(this));		
 	}
 
-	private void addPreferencePanel(NWN2OptionsPanel optionsPanel) {
+	private void addPreferencePanel(NWN2ContentPanel optionsPanel) {
 		optionPanels.add(optionsPanel);
 		mainArea.add(optionsPanel,optionsPanel.getPanelName());		
 	}

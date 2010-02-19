@@ -35,7 +35,7 @@ import org.stanwood.nwn2.gui.options.Settings;
 import org.stanwood.swing.FileChooseWidget;
 import org.stanwood.swing.FileListWidget;
 
-public class NWN2OptionsPanel extends AbstractOptionDialog{
+public class NWN2ContentPanel extends AbstractOptionDialog{
 
 	private static final long serialVersionUID = -188846817682510395L;
 	
@@ -45,7 +45,7 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 	private FileListWidget tlkList;
 
 
-	public NWN2OptionsPanel() {
+	public NWN2ContentPanel() {
 		super();
 	}
 	
@@ -88,6 +88,10 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 		if (settings instanceof NWN2GuiSettings) {
 			NWN2GuiSettings guiSettings = (NWN2GuiSettings)settings;
 			txtNWN2Dir.setFile(guiSettings.getNWN2Dir(new File(File.separator)));
+			
+			tlkList.setFiles(guiSettings.getFileList(NWN2GuiSettings.PROP_EXTRA_TLKS));
+			fontList.setFiles(guiSettings.getFileList(NWN2GuiSettings.PROP_EXTRA_FONT_DIRS));
+			iconList.setFiles(guiSettings.getFileList(NWN2GuiSettings.PROP_EXTRA_ICON_DIRS));
 		}
 	}
 	
@@ -96,6 +100,10 @@ public class NWN2OptionsPanel extends AbstractOptionDialog{
 		if (settings instanceof NWN2GuiSettings) {
 			NWN2GuiSettings guiSettings = (NWN2GuiSettings)settings;
 			guiSettings.setNWN2Dir(txtNWN2Dir.getFile());
+			
+			guiSettings.setFileList(NWN2GuiSettings.PROP_EXTRA_TLKS, tlkList.getFiles());
+			guiSettings.setFileList(NWN2GuiSettings.PROP_EXTRA_FONT_DIRS, fontList.getFiles());
+			guiSettings.setFileList(NWN2GuiSettings.PROP_EXTRA_ICON_DIRS, iconList.getFiles());
 		}
 	}
 

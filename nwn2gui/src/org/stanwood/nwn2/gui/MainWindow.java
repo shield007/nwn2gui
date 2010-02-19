@@ -96,9 +96,6 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		loadSettings();		
-		
-				
-		
 		indexIcons();
 		loadStyles();
 		setupFonts();
@@ -106,27 +103,36 @@ public class MainWindow extends JFrame {
 	}
 
 	private void setupFonts() {
-		File fontDir = new File(nwn2Dir,"UI/default/fonts");
-		if (fontDir.exists()) {
-			File fontFiles[] = fontDir.listFiles(new FilenameFilter() {			
-				@Override
-				public boolean accept(File dir, String name) {
-					return (name.toLowerCase().endsWith(".ttf"));				
-				}
-			});
-			
-			if (fontFiles!=null) {
-				for (File fontFile : fontFiles) {
-					try {
-						FontManager.getInstance().addFont(fontFile);
-					} catch (Exception e) {
-						log.error("Unable to add font file " + fontFile.getAbsolutePath()+": " + e.getMessage());
+		List<File>fontDirs= new ArrayList<File>();
+		fontDirs.add(new File(nwn2Dir,"UI"+File.separator+"default"+File.separator+"fonts"));
+		fontDirs.addAll(settings.getFileList(NWN2GuiSettings.PROP_EXTRA_FONT_DIRS));
+		log.info("Indexing Neverwinter Nights 2 fonts....");
+		
+		for (File fontDir : fontDirs) {
+			if (fontDir.exists()) {
+				File fontFiles[] = fontDir.listFiles(new FilenameFilter() {			
+					@Override
+					public boolean accept(File dir, String name) {
+						return (name.toLowerCase().endsWith(".ttf"));				
+					}
+				});
+				
+				if (fontFiles!=null) {
+					for (File fontFile : fontFiles) {
+						try {
+							if (log.isDebugEnabled()) {
+								log.debug("Adding font file: " + fontFile);
+							}
+							FontManager.getInstance().addFont(fontFile);
+						} catch (Exception e) {
+							log.error("Unable to add font file " + fontFile.getAbsolutePath()+": " + e.getMessage());
+						}
 					}
 				}
 			}
-		}
-		else {
-			log.error("Unable to find font directory:" + fontDir);
+			else {
+				log.error("Unable to find font directory:" + fontDir);
+			}
 		}
 	}
 
@@ -141,16 +147,24 @@ public class MainWindow extends JFrame {
 	}
 
 	private void setupTLKParsers() {
-		try {
-			File tlkFile = new File(nwn2Dir,"dialog.TLK");
-			if (tlkFile.exists()) {
-				TLKManager.getInstance().addTLKFile(tlkFile);
+		List<File>tlkFiles= new ArrayList<File>();
+		tlkFiles.add(new File(nwn2Dir,"dialog.TLK"));		
+		log.info("Indexing Neverwinter Nights 2 tlk files....");
+		
+		for (File tlkFile : tlkFiles) {
+			try {
+				if (log.isDebugEnabled()) {
+					log.debug("Indexing tlk file: " + tlkFile.getAbsolutePath());
+				}
+				if (tlkFile.exists()) {
+					TLKManager.getInstance().addTLKFile(tlkFile);
+				}
+				else {
+					log.error("Unable to find tlk file: " + tlkFile);
+				}
+			} catch (IOException e) {
+				log.error("Unable to add tlk file: " + e.getMessage(),e);
 			}
-			else {
-				log.error("Unable to find tlk file: " + tlkFile);
-			}
-		} catch (IOException e) {
-			log.error("Unable to add tlk file: " + e.getMessage(),e);
 		}
 	}
 
@@ -334,10 +348,18 @@ public class MainWindow extends JFrame {
 	}
 	
 	private void indexIcons() {
+		List<File>rootIconDirs= new ArrayList<File>();
+		rootIconDirs.add(new File(nwn2Dir,"UI"+File.separator+"default"+File.separator+"images"));
+		rootIconDirs.addAll(settings.getFileList(NWN2GuiSettings.PROP_EXTRA_ICON_DIRS));
+		log.info("Indexing Neverwinter Nights 2 icons....");
 		try {
-			log.info("Indexing Neverwinter Nights 2 icons....");
-			NWN2IconManager iconManager = NWN2IconManager.getInstance();
-			iconManager.addIconDir(new File(nwn2Dir,"UI"+File.separator+"default"+File.separator+"images"));			
+			for (File iconDir : rootIconDirs) {
+				if (log.isDebugEnabled()) {
+					log.debug("Indexing icon directory: " + iconDir);
+				}
+				NWN2IconManager iconManager = NWN2IconManager.getInstance();
+				iconManager.addIconDir(iconDir);			
+			}
 		}
 		catch (IOException e) {
 			log.error(e.getMessage());

@@ -50,4 +50,10 @@ public class FileListModel extends AbstractListModel {
 		files.remove(index);
 		fireIntervalRemoved(this, index, index);
 	}
+	
+	public void setFiles(List<File> files) {
+		fireIntervalRemoved(this, 0, files.size()-1);
+		this.files = files;
+		fireIntervalAdded(this, 0, files.size()-1);
+	}
 }
