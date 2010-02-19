@@ -70,5 +70,8 @@ public abstract class UIObjectView {
 		this.y = y;
 	}
 
+	public void positionChanged() {
+		
+	}
 
 }

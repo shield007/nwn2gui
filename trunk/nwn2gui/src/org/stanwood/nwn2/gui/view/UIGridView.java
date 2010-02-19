@@ -53,7 +53,7 @@ public class UIGridView extends UIObjectView {
 					UIObjectView viewChild = UIObjectFactory.createViewObject(child,getScene());					
 					viewChild.setX(x);
 					viewChild.setY(y);
-					System.out.println("Setting grid cell pos : " + viewChild.getX()+","+viewChild.getY()+":"+viewChild.getClass());
+					viewChild.positionChanged();					
 					this.children.add(viewChild);
 										
 					x+=child.getWidth().getValue(getScreenDimension())+grid.getxPadding();
