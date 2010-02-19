@@ -41,7 +41,7 @@ public class UIIconView extends UIObjectView {
 			setX(icon.getX().getValue(getScreenDimension(), getScene()));
 			setY(icon.getY().getValue(getScreenDimension(), getScene()));
 		}
-		width = icon.getWidth().getValue(getScreenDimension());
+		width = icon.getWidth().getValue(getScreenDimension()) ;
 		height = icon.getHeight().getValue(getScreenDimension());
 	}
 		
