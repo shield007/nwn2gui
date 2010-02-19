@@ -29,6 +29,8 @@ import javax.swing.filechooser.FileFilter;
 
 public class FileChooseWidget extends JPanel {
 
+	private static final long serialVersionUID = 595448508916223577L;
+	
 	private JTextField txtFile;
 	private int mode;
 	private FileFilter fileFilter;
