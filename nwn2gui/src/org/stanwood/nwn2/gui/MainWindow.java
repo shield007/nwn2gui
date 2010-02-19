@@ -24,7 +24,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,6 @@ import javax.swing.filechooser.FileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdesktop.swingx.util.WindowUtils;
-import org.stanwood.nwn2.gui.icons.NWN2IconManager;
 import org.stanwood.nwn2.gui.logging.LogSetupHelper;
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.nwn2.gui.options.OptionsDialog;
@@ -86,6 +84,7 @@ public class MainWindow extends JFrame {
 		setLocation(WindowUtils.getPointForCentering(this));		
 		
 		addWindowListener(new WindowAdapter(){
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeWindow();
