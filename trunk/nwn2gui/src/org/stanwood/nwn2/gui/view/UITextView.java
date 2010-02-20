@@ -18,8 +18,12 @@ package org.stanwood.nwn2.gui.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 
+import org.stanwood.nwn2.gui.FontManager;
 import org.stanwood.nwn2.gui.StyleSheetManager;
 import org.stanwood.nwn2.gui.TLKManager;
 import org.stanwood.nwn2.gui.model.UIFont;
@@ -32,12 +36,8 @@ public class UITextView extends UIObjectView {
 	private UIText text;
 
 	public UITextView(UIText text,UIScene scene, Dimension screenDimension) {
-		super(scene, screenDimension);
-		this.text = text;
-		if (text.getX()!=null && text.getY()!=null) {
-			setX(text.getX().getValue(getScreenDimension(), getScene()));
-			setY(text.getY().getValue(getScreenDimension(), getScene()));
-		}
+		super(text,scene, screenDimension);
+		this.text = text;		
 	}
 
 
@@ -50,19 +50,43 @@ public class UITextView extends UIObjectView {
 			value = TLKManager.getInstance().getText(text.getStrRef());
 		}
 		if (value!=null) {
-//			NWN2GUIObject parent = text.getParent();	
-			
-			
 			UIFont uiFont = getUIFont(text.getFontFamily(),text.getStyle());
 			if (uiFont!=null) {
 				g.setFont(g.getFont().deriveFont(uiFont.getPointSize()));
-//				Font font = FontManager.getInstance().getFont(uiFont);
-//				if (font!=null) {
-//					g.setFont(font);
-//				}			
+				Font font = FontManager.getInstance().getFont(uiFont);
+				if (font!=null) {
+					g.setFont(font);
+				}
+				else {
+					System.out.println("Unable to find font");
+				}
 			}
+			System.out.println("Text color: " + text.getColor() + " : " + value);
+			FontMetrics metrics = g.getFontMetrics();
+			Rectangle2D bounds = metrics.getStringBounds(value, g);			
 			g.setColor(Color.GREEN);
-			g.drawString(value,x , y);
+			
+			if (text.getValign().equals("middle")) {
+				y +=(getHeight()/2)-((int)bounds.getCenterY());
+			}			
+			else if (text.getValign().equals("top")) {
+				y+=bounds.getHeight();
+			}
+			else if (text.getValign().equals("bottom")) {
+				y+=getHeight();
+			}
+			
+			if (text.getAlign().equals("left")) {
+				// Do nothing
+			}
+			else if (text.getAlign().equals("center")) {
+				x+=(getWidth()/2)-((int)bounds.getCenterX());
+			}
+			else if (text.getAlign().equals("right")) {
+				x+=getWidth()-((int)bounds.getWidth());
+			}
+		
+			g.drawString(value,x , y);						
 		}
 	}
 	

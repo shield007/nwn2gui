@@ -24,7 +24,9 @@ import org.stanwood.nwn2.gui.model.UIButton;
 import org.stanwood.nwn2.gui.model.UIFrame;
 import org.stanwood.nwn2.gui.model.UIGrid;
 import org.stanwood.nwn2.gui.model.UIIcon;
+import org.stanwood.nwn2.gui.model.UIListBox;
 import org.stanwood.nwn2.gui.model.UIScene;
+import org.stanwood.nwn2.gui.model.UIScrollBar;
 import org.stanwood.nwn2.gui.model.UIText;
 
 public class UIObjectFactory {
@@ -54,6 +56,12 @@ public class UIObjectFactory {
 		}		
 		else if (uiObject instanceof UIText ) {
 			view =  new UITextView((UIText)uiObject, scene, screenDimension);
+		}
+		else if (uiObject instanceof UIListBox ) {
+			view =  new UIListBoxView((UIListBox)uiObject, scene, screenDimension);
+		}
+		else if (uiObject instanceof UIScrollBar ) {
+			view =  new UIScrollBarView((UIScrollBar)uiObject, scene, screenDimension);
 		}
 		return view;
 	}

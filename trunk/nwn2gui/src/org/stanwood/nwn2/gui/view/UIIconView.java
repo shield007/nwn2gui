@@ -30,19 +30,11 @@ public class UIIconView extends UIObjectView {
 	
 	private final static Log log = LogFactory.getLog(UIIconView.class);
 	private UIIcon icon;	
-	private int width;
-	private int height;
 	
 	public UIIconView(UIIcon icon,UIScene scene,Dimension screenDimension) {
-		super(scene,screenDimension);
+		super(icon,scene,screenDimension);
 		this.icon = icon;
-		
-		if (icon.getX()!=null && icon.getY()!=null) {
-			setX(icon.getX().getValue(getScreenDimension(), getScene()));
-			setY(icon.getY().getValue(getScreenDimension(), getScene()));
-		}
-		width = icon.getWidth().getValue(getScreenDimension()) ;
-		height = icon.getHeight().getValue(getScreenDimension());
+	
 	}
 		
 	@Override
@@ -52,12 +44,12 @@ public class UIIconView extends UIObjectView {
 		try {
 			
 			Image img = getIconManager().getIcon(icon.getImg());
-			img = img.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+			img = img.getScaledInstance(getWidth(),getHeight(), Image.SCALE_SMOOTH);
 			g.drawImage(img,x,y , null);
 		}
 		catch (Exception e) {
 			log.error(e.getMessage());
-			drawMissingIcon(x,y,width,height,g);
+			drawMissingIcon(x,y,getWidth(),getHeight(),g);
 		}
 	}
 	

@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import org.stanwood.nwn2.gui.icons.NWN2IconManager;
+import org.stanwood.nwn2.gui.model.UIObject;
 import org.stanwood.nwn2.gui.model.UIScene;
 
 public abstract class UIObjectView {
@@ -34,10 +35,24 @@ public abstract class UIObjectView {
 	private Dimension screenDimension;
 	private int x;
 	private int y;
+	private int width;
+	private int height;
+	private String name;
 	
-	public UIObjectView(UIScene scene, Dimension screenDimension) {
+	public UIObjectView(UIObject object, UIScene scene, Dimension screenDimension) {
 		this.scene = scene;
 		this.screenDimension = screenDimension;
+		this.name = object.getName();
+		if (object.getX()!=null && object.getY()!=null) {
+			setX(object.getX().getValue(getScreenDimension(), getScene()));
+			setY(object.getY().getValue(getScreenDimension(), getScene()));
+		}
+		if (object.getWidth()!=null) {
+			setWidth(object.getWidth().getValue(getScreenDimension()));
+		}
+		if (object.getHeight()!=null) {
+			setHeight(object.getHeight().getValue(getScreenDimension()));
+		}
 	}
 	
 	public abstract void paintUIObject(Graphics g);
@@ -68,10 +83,32 @@ public abstract class UIObjectView {
 
 	public void setY(int y) {
 		this.y = y;
+	}	
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public void positionChanged() {
 		
 	}
 
+	@Override
+	public String toString() {	
+		return name+" - x="+x+", y="+y+", width="+width+", height="+height;
+	}
+
+	
 }
