@@ -36,12 +36,7 @@ public class UIButtonView extends UIObjectView {
 	private List<UIObjectView>children = new ArrayList<UIObjectView>();
 
 	public UIButtonView(UIButton button,UIScene scene, Dimension screenDimension) {
-		super(scene, screenDimension);
-		
-		if (button.getX()!=null && button.getY()!=null) {
-			setX(button.getX().getValue(getScreenDimension(), getScene()));
-			setY(button.getY().getValue(getScreenDimension(), getScene()));
-		}
+		super(button,scene, screenDimension);		
 		createView(button);
 	}
 
@@ -51,8 +46,7 @@ public class UIButtonView extends UIObjectView {
 			UIObject styleButton = StyleSheetManager.getInstance().getObjectByName(button.getStyle());
 			if (styleButton!=null) {
 				try {
-					newButton = (UIButton) button.clone();
-//					newButton.setParent(button.getParent());
+					newButton = (UIButton) button.clone();					
 					newButton.applyStyle(styleButton);
 				} catch (CloneNotSupportedException e) {
 					log.error("Unable to clone button, " + e.getMessage(),e);
@@ -78,7 +72,7 @@ public class UIButtonView extends UIObjectView {
 				viewChild.setX(newButton.getX().getValue(getScreenDimension(), getScene()));
 				viewChild.setY(newButton.getY().getValue(getScreenDimension(), getScene()));				
 			}
-			this.children.add(viewChild);
+			this.children.add(0,viewChild);
 		}		
 	}
 	

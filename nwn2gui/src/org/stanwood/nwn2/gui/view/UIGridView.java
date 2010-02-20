@@ -32,7 +32,7 @@ public class UIGridView extends UIObjectView {
 	private List<UIObjectView>children = new ArrayList<UIObjectView>();
 
 	public UIGridView(UIGrid grid, UIScene scene, Dimension screenDimension) {
-		super(scene, screenDimension);
+		super(grid,scene, screenDimension);
 		this.grid = grid;
 		
 		constructGrid();

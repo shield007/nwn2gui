@@ -51,8 +51,8 @@ public class FontManager {
 		name = name.substring(name.lastIndexOf('\\')+1).toLowerCase();
 		Font baseFont = fonts.get(name);
 		Font font = null;
-		if (baseFont!=null) {
-			font = baseFont.deriveFont(uiFont.getPointSize());
+		if (baseFont!=null) {	
+			font = baseFont.deriveFont(Float.valueOf(uiFont.getPointSize()));
 		}
 		return font;
 	}

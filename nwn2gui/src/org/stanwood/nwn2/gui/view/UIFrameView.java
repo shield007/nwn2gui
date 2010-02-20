@@ -33,12 +33,8 @@ public class UIFrameView  extends UIObjectView {
 	private UIFrame frame;
 
 	public UIFrameView(UIFrame frame,UIScene scene, Dimension screenDimension) {
-		super(scene, screenDimension);
-		this.frame = frame;
-		if (frame.getX()!=null && frame.getY()!=null) {
-			setX(frame.getX().getValue(getScreenDimension(), getScene()));
-			setY(frame.getY().getValue(getScreenDimension(), getScene()));
-		}
+		super(frame,scene, screenDimension);
+		this.frame = frame;		
 	}
 
 	@Override
@@ -47,8 +43,8 @@ public class UIFrameView  extends UIObjectView {
 			try {								
 				int x = getX();
 				int y = getY();
-				int width = frame.getWidth().getValue(getScreenDimension());
-				int height = frame.getHeight().getValue(getScreenDimension());
+				int width = getWidth();
+				int height = getHeight();
 				int border = frame.getBorder();
 		
 				drawFramePart(g,  width - (border*2), height - (border*2),  x+border, y+border, frame.getFill());
