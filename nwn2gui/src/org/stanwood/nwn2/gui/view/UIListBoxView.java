@@ -35,17 +35,17 @@ public class UIListBoxView extends UIObjectView {
 	private List<UIObjectView> children = new ArrayList<UIObjectView>();	
 
 	public UIListBoxView(UIListBox listBox,UIScene scene, Dimension screenDimension) {
-		super(listBox,scene, screenDimension);
-				
+		super(listBox,scene, screenDimension);		
 		createView(listBox);
+		positionChanged();
 	}
 	
 	private void createView(UIListBox listBox) {
 		for (NWN2GUIObject child : listBox.getChildren()) {
 			if (child instanceof UIScrollBar) {
 				UIScrollBarView viewChild = (UIScrollBarView) UIObjectFactory.createViewObject(child, getScene());
-				if (listBox.getScrollBarOnRight()!=null && listBox.getScrollBarOnRight()) {
-					viewChild.setX(this.getX()+this.getWidth()-viewChild.getWidth());
+				if (listBox.getScrollBarOnRight()!=null && listBox.getScrollBarOnRight()) {					
+					viewChild.setX(this.getX()+this.getWidth()-viewChild.getWidth());				
 				}
 				else {
 					viewChild.setX(this.getX());
