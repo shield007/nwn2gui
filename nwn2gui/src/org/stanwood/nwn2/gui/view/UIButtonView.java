@@ -17,9 +17,6 @@
 package org.stanwood.nwn2.gui.view;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +30,6 @@ import org.stanwood.nwn2.gui.model.UIText;
 public class UIButtonView extends UIObjectView {
 	
 	private final static Log log = LogFactory.getLog(UIButtonView.class);	
-	private List<UIObjectView>children = new ArrayList<UIObjectView>();
 
 	public UIButtonView(UIButton button,UIScene scene, Dimension screenDimension) {
 		super(button,scene, screenDimension);		
@@ -72,23 +68,18 @@ public class UIButtonView extends UIObjectView {
 				viewChild.setX(newButton.getX().getValue(getScreenDimension(), getScene()));
 				viewChild.setY(newButton.getY().getValue(getScreenDimension(), getScene()));				
 			}
-			this.children.add(0,viewChild);
+			addChild(viewChild);
 		}		
 	}
 	
 	@Override
 	public void positionChanged() {
-		for (UIObjectView viewChild : children) {
+		for (UIObjectView viewChild : getChildren()) {
 			viewChild.setX(getX());
 			viewChild.setY(getY());
 		}
 	}
 
-	@Override
-	public void paintUIObject(Graphics g) {
-		for (UIObjectView viewChild : children) {
-			viewChild.paintUIObject(g);
-		}
-	}
+	
 
 }

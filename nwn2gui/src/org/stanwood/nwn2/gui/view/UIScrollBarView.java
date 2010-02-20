@@ -18,7 +18,6 @@
 package org.stanwood.nwn2.gui.view;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -60,33 +59,57 @@ public class UIScrollBarView extends UIObjectView {
 			else {
 				log.error("Unable to find the style: " +scrollBar.getStyle());
 			}				
-		}			
-				
+		}									
+		
 		up = getChildWithState(newScrollBar,"up");		
 		down = getChildWithState(newScrollBar,"down");
 		slider = getChildWithState(newScrollBar,"slider");		
 		back = getChildWithState(newScrollBar,"back");
+		
+		setWidth(up.getWidth());			
+		addChild(up);
+		addChild(down);
+		addChild(back);
+		addChild(slider);
 	}
 	
 	@Override
-	public void positionChanged() {
+	public void positionChanged() {	
+		super.positionChanged();
 		childSetX(up,this.getX());
 		up.setY(this.getY());
+		up.positionChanged();
+		updateChildren(up);
 		
 		childSetX(down,this.getX());		
 		down.setY(this.getY()+this.getHeight()-down.getHeight());
+		down.positionChanged();
+		updateChildren(down);
 		
 		childSetX(slider,this.getX());		
-		slider.setY(this.getY()+up.getHeight());
+		slider.setY(this.getY()+(up.getY()+up.getHeight()));
+		slider.positionChanged();
+		updateChildren(slider);
 		
 		childSetX(back,this.getX());		
-		back.setY(this.getY()+up.getHeight());
-		back.setHeight(this.getHeight()-up.getHeight()-down.getHeight());
+		back.setY(up.getY()+up.getHeight());
+		back.setHeight(down.getY()-this.getY() -down.getHeight());
+		back.positionChanged();
+		updateChildren(back);
+	}
+	
+	private void updateChildren(UIObjectView obj) {
+		for (UIObjectView child : obj.getChildren()) {
+			child.setX(obj.getX());
+			child.setY(obj.getY());
+			child.setHeight(obj.getHeight());
+			child.setWidth(obj.getWidth());
+		}
 	}
 	
 	private void childSetX(UIButtonView child,int value) {		
-		value+=up.getX();		
-		up.setX(value);
+		value+=child.getX();		
+		child.setX(value);
 	}
 
 	private UIButtonView getChildWithState(UIScrollBar scrollBar,String state) {	
@@ -101,14 +124,4 @@ public class UIScrollBarView extends UIObjectView {
 		return null;
 	}
 
-	@Override
-	public void paintUIObject(Graphics g) {			
-		System.out.println(up);
-		up.paintUIObject(g);		
-		down.paintUIObject(g);
-		back.paintUIObject(g);
-		slider.paintUIObject(g);
-	}
-
-	
 }
