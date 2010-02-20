@@ -42,8 +42,8 @@ public class UIGridView extends UIObjectView {
 			int childIndex=0;
 					
 			int height = ((UIObject)children.get(0)).getHeight().getValue(getScreenDimension());
-			int x = grid.getX().getValue(getScreenDimension(), getScene())+grid.getxPadding();
-			int y = grid.getY().getValue(getScreenDimension(), getScene())+grid.getyPadding();			
+			int x = grid.getX().getValue(getScreenDimension(), getScene())+grid.getXPadding();
+			int y = grid.getY().getValue(getScreenDimension(), getScene())+grid.getYPadding();			
 			for (int row=0;row<grid.getRows();row++) {				
 				for (int column=0;column<grid.getColumns();column++) {
 					UIObject child = (UIObject) children.get(childIndex);
@@ -54,15 +54,15 @@ public class UIGridView extends UIObjectView {
 					viewChild.positionChanged();					
 					addChild(viewChild);
 										
-					x+=child.getWidth().getValue(getScreenDimension())+grid.getxPadding();
+					x+=child.getWidth().getValue(getScreenDimension())+grid.getXPadding();
 					childIndex++;
 					if (childIndex>children.size()-1) {
 						childIndex = 0;
 					}
 				}
 				
-				y+=height+grid.getyPadding();	
-				x = grid.getX().getValue(getScreenDimension(), getScene())+grid.getxPadding();
+				y+=height+grid.getYPadding();	
+				x = grid.getX().getValue(getScreenDimension(), getScene())+grid.getXPadding();
 			}		
 		}
 	}
