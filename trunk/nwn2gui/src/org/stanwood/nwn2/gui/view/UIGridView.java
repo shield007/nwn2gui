@@ -17,8 +17,6 @@
 package org.stanwood.nwn2.gui.view;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.stanwood.nwn2.gui.model.NWN2GUIObject;
@@ -29,7 +27,7 @@ import org.stanwood.nwn2.gui.model.UIScene;
 public class UIGridView extends UIObjectView {
 
 	private UIGrid grid;
-	private List<UIObjectView>children = new ArrayList<UIObjectView>();
+
 
 	public UIGridView(UIGrid grid, UIScene scene, Dimension screenDimension) {
 		super(grid,scene, screenDimension);
@@ -54,7 +52,7 @@ public class UIGridView extends UIObjectView {
 					viewChild.setX(x);
 					viewChild.setY(y);
 					viewChild.positionChanged();					
-					this.children.add(viewChild);
+					addChild(viewChild);
 										
 					x+=child.getWidth().getValue(getScreenDimension())+grid.getxPadding();
 					childIndex++;
@@ -69,11 +67,5 @@ public class UIGridView extends UIObjectView {
 		}
 	}
 
-	@Override
-	public void paintUIObject(Graphics g) {
-		for (UIObjectView child : children) {						
-			child.paintUIObject(g);
-		}
-	}
-
+	
 }

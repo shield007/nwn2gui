@@ -18,9 +18,6 @@
 package org.stanwood.nwn2.gui.view;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.stanwood.nwn2.gui.model.NWN2GUIObject;
 import org.stanwood.nwn2.gui.model.UIListBox;
@@ -32,8 +29,6 @@ import org.stanwood.nwn2.gui.model.UIScrollBar;
  */
 public class UIListBoxView extends UIObjectView {
 		
-	private List<UIObjectView> children = new ArrayList<UIObjectView>();	
-
 	public UIListBoxView(UIListBox listBox,UIScene scene, Dimension screenDimension) {
 		super(listBox,scene, screenDimension);		
 		createView(listBox);
@@ -52,17 +47,9 @@ public class UIListBoxView extends UIObjectView {
 				}
 				viewChild.setY(this.getY());
 				viewChild.positionChanged();
-				children.add(viewChild);
+				addChild(viewChild);			
 			}
 		}		
-	}
-
-	@Override
-	public void paintUIObject(Graphics g) {
-		for (UIObjectView child : children) {						
-			child.paintUIObject(g);
-		}
-
 	}
 
 }

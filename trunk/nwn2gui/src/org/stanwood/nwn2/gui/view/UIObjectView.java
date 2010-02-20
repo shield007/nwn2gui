@@ -18,6 +18,8 @@ package org.stanwood.nwn2.gui.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.stanwood.nwn2.gui.icons.NWN2IconManager;
 import org.stanwood.nwn2.gui.model.UIObject;
@@ -38,24 +40,16 @@ public abstract class UIObjectView {
 	private int width;
 	private int height;
 	private String name;
+	private UIObject object;
+	private List<UIObjectView> children = new ArrayList<UIObjectView>();
 	
 	public UIObjectView(UIObject object, UIScene scene, Dimension screenDimension) {
 		this.scene = scene;
 		this.screenDimension = screenDimension;
 		this.name = object.getName();
-		if (object.getX()!=null && object.getY()!=null) {
-			setX(object.getX().getValue(getScreenDimension(), getScene()));
-			setY(object.getY().getValue(getScreenDimension(), getScene()));
-		}
-		if (object.getWidth()!=null) {
-			setWidth(object.getWidth().getValue(getScreenDimension()));
-		}
-		if (object.getHeight()!=null) {
-			setHeight(object.getHeight().getValue(getScreenDimension()));
-		}
+		this.object = object;
+		updateDimensions();
 	}
-	
-	public abstract void paintUIObject(Graphics g);
 	
 	protected NWN2IconManager getIconManager() {
 		return iconManager;
@@ -100,9 +94,24 @@ public abstract class UIObjectView {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	
+	protected void updateDimensions() {
+		if (object.getX()!=null) {
+			setX(object.getX().getValue(getScreenDimension(), getScene()));
+		}
+		if (object.getY()!=null) {			
+			setY(object.getY().getValue(getScreenDimension(), getScene()));
+		}
+		if (object.getWidth()!=null) {
+			setWidth(object.getWidth().getValue(getScreenDimension()));
+		}
+		if (object.getHeight()!=null) {
+			setHeight(object.getHeight().getValue(getScreenDimension()));
+		}	
+	}
 
-	public void positionChanged() {
-		
+	protected void positionChanged() {
+		updateDimensions();				
 	}
 
 	@Override
@@ -110,5 +119,17 @@ public abstract class UIObjectView {
 		return name+" - x="+x+", y="+y+", width="+width+", height="+height;
 	}
 
+	public List<UIObjectView>getChildren() {
+		return children;
+	}
 	
+	public void addChild(UIObjectView child) {
+		children.add(0,child);
+	}
+	
+	public void paintUIObject(Graphics g) {
+		for (UIObjectView child : children) {						
+			child.paintUIObject(g);
+		}
+	}
 }
