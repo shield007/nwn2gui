@@ -33,6 +33,14 @@ import org.stanwood.nwn2.gui.model.UIText;
 
 public class UITextView extends UIObjectView {
 
+	/**
+	 * 
+	 */
+	private static final Color DROP_SHADOW_COLOUR = Color.BLACK;
+	/**
+	 * 
+	 */
+	private static final int DROP_SHADOW_OFFSET = 2;
 	private UIText text;
 
 	public UITextView(UIText text,UIScene scene, Dimension screenDimension) {
@@ -50,6 +58,9 @@ public class UITextView extends UIObjectView {
 			value = TLKManager.getInstance().getText(text.getStrRef());
 		}
 		if (value!=null) {
+			if (text.getUpperCase()!=null && text.getUpperCase()) {
+				value = value.toUpperCase();
+			}
 			UIFont uiFont = getUIFont(text.getFontFamily(),text.getStyle());
 			if (uiFont!=null) {
 				g.setFont(g.getFont().deriveFont(uiFont.getPointSize()));
@@ -61,10 +72,10 @@ public class UITextView extends UIObjectView {
 					System.out.println("Unable to find font");
 				}
 			}
-			System.out.println("Text color: " + text.getColor() + " : " + value);
+
 			FontMetrics metrics = g.getFontMetrics();
 			Rectangle2D bounds = metrics.getStringBounds(value, g);			
-			g.setColor(Color.GREEN);
+			
 			
 			if (text.getValign().equals("middle")) {
 				y +=(getHeight()/2)-((int)bounds.getCenterY());
@@ -85,7 +96,14 @@ public class UITextView extends UIObjectView {
 			else if (text.getAlign().equals("right")) {
 				x+=getWidth()-((int)bounds.getWidth());
 			}
-		
+					
+			if (uiFont!=null) {
+				if (uiFont.getDropShadows() != null && uiFont.getDropShadows()) {
+					g.setColor(DROP_SHADOW_COLOUR);
+					g.drawString(value,x+DROP_SHADOW_OFFSET , y+2);
+				}
+			}
+			g.setColor(Color.GREEN);
 			g.drawString(value,x , y);						
 		}
 	}
