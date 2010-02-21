@@ -42,11 +42,13 @@ public class UIPaneView extends UIObjectView {
 			
 			for (int i=0;i<children.size();i++) {
 				UIObject child = (UIObject) children.get(i);
-				UIObjectView viewChild = UIObjectFactory.createViewObject(child,getScene());					
-				viewChild.setX(x);
-				viewChild.setY(y);
-				viewChild.positionChanged();					
-				addChild(viewChild);
+				UIObjectView viewChild = UIObjectFactory.createViewObject(child,getScene());
+				if (viewChild!=null) {
+					viewChild.setX(x);
+					viewChild.setY(y);
+					viewChild.positionChanged();					
+					addChild(viewChild);
+				}
 								
 				x+=child.getWidth().getValue(getScreenDimension());			
 			}
