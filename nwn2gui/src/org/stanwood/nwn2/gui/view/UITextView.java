@@ -33,14 +33,10 @@ import org.stanwood.nwn2.gui.model.UIText;
 
 public class UITextView extends UIObjectView {
 
-	/**
-	 * 
-	 */
 	private static final Color DROP_SHADOW_COLOUR = Color.BLACK;
-	/**
-	 * 
-	 */
 	private static final int DROP_SHADOW_OFFSET = 2;
+	private static final Color DEFAULT_TEXT_COLOR = Color.WHITE;
+	
 	private UIText text;
 
 	public UITextView(UIText text,UIScene scene, Dimension screenDimension) {
@@ -103,7 +99,7 @@ public class UITextView extends UIObjectView {
 					g.drawString(value,x+DROP_SHADOW_OFFSET , y+2);
 				}
 			}
-			g.setColor(Color.GREEN);
+			g.setColor(DEFAULT_TEXT_COLOR);
 			g.drawString(value,x , y);						
 		}
 	}

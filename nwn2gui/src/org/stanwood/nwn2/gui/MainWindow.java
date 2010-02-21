@@ -17,6 +17,7 @@
 package org.stanwood.nwn2.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -68,6 +70,7 @@ public class MainWindow extends JFrame {
 	private JButton cmdRemove;
 	private DefaultListModel guiFileListModel;
 	private NWN2GuiSettings settings = NWN2GuiSettings.getInstance();
+	private AbstractButton cmdEdit;
 
 	public MainWindow() {
 		setTitle("NWN2GUI");
@@ -113,6 +116,7 @@ public class MainWindow extends JFrame {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic('F');
         JMenuItem newAction = new JMenuItem("Add GUI file");
+        newAction.setMnemonic('A');
         newAction.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -120,6 +124,16 @@ public class MainWindow extends JFrame {
 			}
 		});
         fileMenu.add(newAction);
+                
+        JMenuItem exitAction = new JMenuItem("Exit");
+        exitAction.setMnemonic('x');
+        exitAction.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeWindow();
+			}
+		});
+        fileMenu.add(exitAction);
         
         JMenu prefencesMenu = new JMenu("Prefences");
         prefencesMenu.setMnemonic('P');
@@ -196,9 +210,10 @@ public class MainWindow extends JFrame {
 		JPanel buttonPanel2 = new JPanel();
 		buttonPanel1.add(buttonPanel2,BorderLayout.NORTH);
 		
-		buttonPanel2.setLayout(new GridLayout(3, 1,5,5));
+		buttonPanel2.setLayout(new GridLayout(4, 1,5,5));
 				
 		JButton cmdAdd = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_ADD));
+		cmdAdd.setToolTipText("Add a XML GUI file to the list");
 		cmdAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -209,6 +224,7 @@ public class MainWindow extends JFrame {
 		
 		buttonPanel2.add(cmdAdd);
 		cmdRemove = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_REMOVE));
+		cmdRemove.setToolTipText("Remove the selected XML GUI file from the list");
 		cmdRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -220,6 +236,7 @@ public class MainWindow extends JFrame {
 		
 		buttonPanel2.add(cmdRemove);
 		cmdDisplay = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_VIEW));
+		cmdDisplay.setToolTipText("Render the selected XML GUI file");
 		cmdDisplay.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -227,6 +244,21 @@ public class MainWindow extends JFrame {
 			}
 		});
 		buttonPanel2.add(cmdDisplay);
+		
+		cmdEdit = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_ACCESSORIES_TEXT_EDITOR));
+		cmdEdit.setToolTipText("Open the selected XML GUI file in a editor");
+		cmdEdit.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File guiFile = getSelectedFile();
+				try {
+					Desktop.getDesktop().edit(guiFile);
+				} catch (IOException e1) {
+					log.error(e1.getMessage(),e1);
+				}
+			}
+		});
+		buttonPanel2.add(cmdEdit);
 		
 		panel.add(pane,BorderLayout.CENTER);
 		panel1.add(panel,BorderLayout.CENTER);
@@ -278,15 +310,17 @@ public class MainWindow extends JFrame {
 		if (guiFileList.getSelectedIndex()!=-1) {
 			cmdDisplay.setEnabled(true);
 			cmdRemove.setEnabled(true);
+			cmdEdit.setEnabled(true);
 		}
 		else {
 			cmdDisplay.setEnabled(false);
 			cmdRemove.setEnabled(false);
+			cmdEdit.setEnabled(false);
 		}
 	}
 	
 	private void displayGUIFile() {
-		File guiFile = (File) guiFileListModel.get(guiFileList.getSelectedIndex());
+		File guiFile = getSelectedFile();
 		FileInputStream fs = null;
 		try {
 			fs = new FileInputStream(guiFile);
@@ -306,6 +340,11 @@ public class MainWindow extends JFrame {
 				}
 			}
 		}
+	}
+
+	private File getSelectedFile() {
+		File guiFile = (File) guiFileListModel.get(guiFileList.getSelectedIndex());
+		return guiFile;
 	}
 	
 	public static void changeLookAndFeel(final String name) {
