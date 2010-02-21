@@ -28,6 +28,7 @@ public class IconManager {
 	public final static String ICON_LIST_VIEW = "list-view.png";
 	public final static String ICON_DIALOG_HEADER_CORNER = "dialog-header-corner.png";
 	public final static String ICON_PREFERENCES_SYSTEM = "preferences-system.png";
+	public final static String ICON_ACCESSORIES_TEXT_EDITOR = "accessories-text-editor.png";
 	
 	private static IconManager instance = null;
 	
