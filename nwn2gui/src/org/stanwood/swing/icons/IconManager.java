@@ -35,6 +35,7 @@ public class IconManager {
 	public final static String ICON_DIALOG_CANCEL = "dialog-cancel.png";
 	public final static String ICON_DIALOG_OK_APPLY = "dialog-ok-apply.png";
 	public final static String ICON_DIALOG_OK = "dialog-ok.png";
+	public final static String ICON_NWN2GUI = "nwn2gui.png";
 	
 	public final static String SIZE_16 = "i16";
 	public final static String SIZE_22 = "i22";	

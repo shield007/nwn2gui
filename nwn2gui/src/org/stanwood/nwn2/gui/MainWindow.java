@@ -26,9 +26,11 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -92,7 +94,8 @@ public class MainWindow extends JFrame {
 		updateEnabledState();
 		getContentPane().add(panel);
 		setSize(500,300);				
-		setLocation(WindowUtils.getPointForCentering(this));		
+		setLocation(WindowUtils.getPointForCentering(this));
+		setWindowIcon();
 		
 		addWindowListener(new WindowAdapter(){
 			@Override
@@ -106,6 +109,25 @@ public class MainWindow extends JFrame {
 		
 		loadSettings();
 		NWN2ResourceHandler.indexResources();		
+	}
+
+	private void setWindowIcon() {
+		InputStream is = null;
+		try {
+			is = MainWindow.class.getResourceAsStream("nwn2gui22.png");
+			setIconImage(ImageIO.read(is));
+		} catch (IOException e) {
+			log.error(e.getMessage(),e);
+		}
+		finally {
+			if (is!=null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					log.error(e.getMessage(),e);
+				}
+			}
+		}
 	}	
 	
 	protected void closeWindow() {
@@ -134,9 +156,9 @@ public class MainWindow extends JFrame {
 		});
         mnuFile.add(newAction);
                 
-        JMenuItem exitAction = new JMenuItem("Exit");
+        JMenuItem exitAction = new JMenuItem("Exit");        
         exitAction.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_APPLICATION_EXIT));
-        exitAction.setMnemonic('x');
+        exitAction.setMnemonic('x');        
         exitAction.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
