@@ -57,10 +57,19 @@ import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.nwn2.gui.options.OptionsDialog;
 import org.stanwood.nwn2.gui.parser.NWN2GUIParser;
 import org.stanwood.swing.AboutDialog;
+import org.stanwood.swing.Author;
 import org.stanwood.swing.icons.IconManager;
 
 public class MainWindow extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final String APP_TITLE = "NWN2GUI";
+	/**
+	 * 
+	 */
+	private static final String APP_VERSION = "Version 0.1 (Beta 1)";
 	private static final long serialVersionUID = 6014789774789616365L;
 	private final static Log log = LogFactory.getLog(MainWindow.class);
 		
@@ -72,7 +81,7 @@ public class MainWindow extends JFrame {
 	private AbstractButton cmdEdit;
 
 	public MainWindow() {
-		setTitle("NWN2GUI");
+		setTitle(APP_TITLE);
 		
 		JPanel panel = new JPanel();			
 		Border padding = BorderFactory.createEmptyBorder(5,5,5,5);
@@ -155,11 +164,14 @@ public class MainWindow extends JFrame {
         about.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				  AboutDialog ad = new AboutDialog (null,
-				          "NWN2GUI",
-				          "NWN2GUI 0.1 (Beta 1)",
-				          "by John-Paul Stanford",
-				          "http://code.google.com/p/nwn2gui/");
+				  AboutDialog ad = new AboutDialog (MainWindow.this,
+				          APP_TITLE,
+				          APP_VERSION);
+
+				  ad.setApplicationWebLink("http://code.google.com/p/nwn2gui/");
+				  ad.setMessage("A NWN2 GUI XML viewer.\n\n (C) 2010, The NWN2 GUI developers");
+				  ad.addAuthor(new Author("John-Paul Stanford","dev@stanwood.org.uk","Lead developer and project creator"));
+				  ad.init();
 				  ad.setVisible(true);
 				
 			}

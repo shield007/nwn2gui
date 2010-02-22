@@ -19,128 +19,158 @@ package org.stanwood.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
+import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
 
 import org.jdesktop.swingx.JXHyperlink;
+import org.jdesktop.swingx.JXLabel;
 
 public class AboutDialog extends JDialog {
-	public AboutDialog(JFrame parent, String title, String message,
-			String linkText, String link) {
-		// Assign title to the dialog box’s title bar and make sure dialog box
-		// is
-		// modal.
+	
+	private Icon icon;
+	private String title;
+	private String version;
+	private String appUrl;
+	private String message;
+	private List<Author>authors = new ArrayList<Author>();
 
-		super(parent, title, true);
-
-		// Tell dialog box to automatically hide and dispose itself when the
-		// user
-		// selects the Close menu item from the dialog box’s system menu.
+	public AboutDialog(JFrame parent, String title,String version) {
+		
+		super(parent, "About " +title, true);
+		this.title = title;
+		this.version = version;
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		Border border = BorderFactory.createEmptyBorder(5,5,5,5);		
+		getRootPane().setBorder(border);		
+	}
+	
+	public void setIcon(Icon icon) {
+		this.icon = icon;
+	}
+	
+	public void setApplicationWebLink(String url) {
+		this.appUrl = url;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public void addAuthor(Author author) {
+		authors.add(author);
+	}
 
-		// Establish the dialog box’s border area. A compound border establishes
-		// a beveled outer border with an empty inner border, which is used as a
-		// margin.
-
-		Border border = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-		Border margin = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-		Border cborder = BorderFactory.createCompoundBorder(border, margin);
-		getRootPane().setBorder(cborder);
-
-		// Use a vertical Box as the dialog box’s content pane, to simplify
-		// layout.
-
+	public void init() {
 		Box box = Box.createVerticalBox();
+		if (icon==null) {		
+			createTitleArea(box,title,version);
+		}
+		else {
+			Box hbox = Box.createHorizontalBox();
+			hbox.add(new JLabel(icon));
+			box.add(hbox);
+			Box vbox = Box.createVerticalBox();
+			createTitleArea(vbox,title,version);
+			box.add(vbox);			
+		}
+				
+		JTabbedPane infoTabbedPane = new JTabbedPane();
+		infoTabbedPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		JComponent tabAbout = createAboutTab();
+		infoTabbedPane.addTab("About",tabAbout);
+		JComponent tabAuthors = createAuthorsTab();
+		infoTabbedPane.addTab("Authors",tabAuthors);
+		box.add(infoTabbedPane);
+		createButtonPane(box);
+		
 		setContentPane(box);
+		setSize(300,200);
+		setLocationRelativeTo(getParent());				
+	}	
+	
+	private JComponent createAuthorsTab() {
+		Box box = Box.createVerticalBox();
+		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		
+		for (Author author : authors) {
+			box.add(new JLabel(author.getName()));	
+			JXHyperlink link = new JXHyperlink(new LinkAction(author.getEmail(),"emailto:"+author.getEmail()));
+			box.add(link);
+			link.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+			JLabel lblDescription = new JLabel(author.getDescription());
+			lblDescription.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+			box.add(lblDescription);
+		}
+		
+		
+		return box;
+	}
 
-		// Add a message (typically identifying the program) label to the box’s
-		// top. This label is horizontally centered within the box.
-
-		JLabel label = new JLabel(message);
-		label.setAlignmentX(0.5f);
-		box.add(label);
-
-		// Add a 30-pixel vertical blank space below the message label to the
-		// box
-		// (for aesthetic purposes).
-
-		box.add(Box.createVerticalStrut(30));
-
-		// Add a hyperlink to the box’s middle. This hyperlink is horizontally
-		// centered within the box.
-
-		JXHyperlink hyperlink;
-		hyperlink = new JXHyperlink(new LinkAction(linkText, link));
-		hyperlink.setAlignmentX(0.5f);
-		box.add(hyperlink);
-
-		// Add a 30-pixel vertical blank space below the hyperlink to the box
-		// (for aesthetic purposes).
-
-		box.add(Box.createVerticalStrut(30));
-
-		// Add an OK button to the box’s bottom. This button is horizontally
-		// centered within the box. Assign an action listener to hide and
-		// dispose
-		// the dialog box (when the button is clicked).
-
-		JButton button = new JButton("OK");
-		button.setAlignmentX(0.5f);
-		button.addActionListener(new ActionListener() {
+	private JComponent createAboutTab() {
+		Box box = Box.createVerticalBox();
+		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		box.add(Box.createVerticalGlue());
+		if (message!=null) {
+			JXLabel lblMessage = new JXLabel(message);
+			lblMessage.setLineWrap(true);			
+			box.add(lblMessage);
+		}
+		if (appUrl!=null) {
+			JXHyperlink link = new JXHyperlink(new LinkAction(appUrl,appUrl));
+			box.add(link);
+		}
+		box.add(Box.createVerticalGlue());
+		return box;
+	}
+	
+	private void createButtonPane(Box box) {
+		Box hBox = Box.createHorizontalBox();
+		hBox.add(Box.createHorizontalGlue());
+		JButton cmdClose = new JButton("Close");
+		cmdClose.setMnemonic('C');
+		cmdClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		box.add(button);
+		hBox.add(cmdClose);
+		box.add(hBox);
+		
+		cmdClose.requestFocusInWindow();
+	}
 
-		// Size dialog box to fit the preferred size and layouts of its
-		// components.
 
-		pack();
-
-		// Center the dialog box (when displayed) relative to its parent window.
-		// If the parent window is not showing, the dialog box is centered on
-		// the
-		// screen.
-
-		setLocationRelativeTo(parent);
-
-		// Give input focus to the button.
-
-		button.requestFocusInWindow();
+	private void createTitleArea(Box box, String title, String version) {
+		JLabel lblTitle = new JLabel(title);
+		lblTitle.setHorizontalTextPosition(JLabel.LEFT);
+		box.add(lblTitle);
+		JLabel lblVersion = new JLabel(version);
+		lblVersion.setHorizontalTextPosition(JLabel.LEFT);
+		box.add(lblVersion);		
 	}
 
 	private static class LinkAction extends AbstractAction {
 		LinkAction(String linkText, String link) {
-			// Save the link’s text and the actual link for later recall when
-			// the
-			// user clicks the hyperlink.
-
 			putValue(Action.NAME, linkText);
 			putValue(Action.SHORT_DESCRIPTION, link);
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			// Retrieve the actual link and output link to the console (for test
-			// purposes).
-
-			String link = (String) getValue(Action.SHORT_DESCRIPTION);
-			System.out.println(link);
-
-			// Launch the default Web browser and have the Web browser display
-			// the
-			// Web page associated with the link.
-
+			String link = (String) getValue(Action.SHORT_DESCRIPTION);			
 			BareBonesBrowserLaunch.openURL(link);
 		}
 	}
