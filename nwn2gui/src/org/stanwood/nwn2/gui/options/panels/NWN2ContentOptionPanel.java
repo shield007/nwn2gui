@@ -27,13 +27,13 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
 
-import org.stanwood.nwn2.gui.options.AbstractOptionDialog;
+import org.stanwood.nwn2.gui.options.AbstractOptionPanel;
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.nwn2.gui.options.Settings;
 import org.stanwood.swing.FileChooseWidget;
 import org.stanwood.swing.FileListWidget;
 
-public class NWN2ContentPanel extends AbstractOptionDialog{
+public class NWN2ContentOptionPanel extends AbstractOptionPanel {
 
 	private static final long serialVersionUID = -188846817682510395L;
 	
@@ -41,11 +41,6 @@ public class NWN2ContentPanel extends AbstractOptionDialog{
 	private FileListWidget iconList;
 	private FileListWidget fontList;
 	private FileListWidget tlkList;
-
-
-	public NWN2ContentPanel() {
-		super();
-	}
 	
 	@Override
 	protected void createControl(JPanel parent) {	        

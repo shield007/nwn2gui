@@ -40,7 +40,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.util.WindowUtils;
-import org.stanwood.nwn2.gui.options.panels.NWN2ContentPanel;
+import org.stanwood.nwn2.gui.options.panels.ApperanceOptionPanel;
+import org.stanwood.nwn2.gui.options.panels.NWN2ContentOptionPanel;
 import org.stanwood.swing.EnhancedDialog;
 import org.stanwood.swing.icons.IconManager;
 
@@ -66,7 +67,8 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		
 		createControl();
 
-		addPreferencePanel(new NWN2ContentPanel());
+		addPreferencePanel(new NWN2ContentOptionPanel());
+		addPreferencePanel(new ApperanceOptionPanel());
 		loadSettings();
 		
 		lstOptions.setSelectedIndex(0);
@@ -77,7 +79,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		setLocation(WindowUtils.getPointForCentering(this));		
 	}
 
-	private void addPreferencePanel(NWN2ContentPanel optionsPanel) {
+	private void addPreferencePanel(AbstractOptionPanel optionsPanel) {
 		optionPanels.add(optionsPanel);
 		mainArea.add(optionsPanel,optionsPanel.getPanelName());		
 	}
@@ -124,6 +126,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		lstOptions.setCellRenderer(new DefaultListCellRenderer() {
 			private static final long serialVersionUID = -4037143996417535601L;
 
+			@Override
 			public Component getListCellRendererComponent(JList list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
