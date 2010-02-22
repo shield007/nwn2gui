@@ -106,7 +106,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		createButtonPane();
 	}
 
-	private JComponent createPrefSelection() {
+	private JComponent createPrefSelection() {		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		AbstractListModel listOptions = new AbstractListModel() {
