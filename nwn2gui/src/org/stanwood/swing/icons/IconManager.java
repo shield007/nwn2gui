@@ -21,8 +21,13 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class IconManager {
 
+	private final static Log log = LogFactory.getLog(IconManager.class);
+	
 	public final static String ICON_APPLICATION_EXIT = "application-exit.png";
 	public final static String ICON_DIALOG_CLOSE = "dialog-close.png";
 	public final static String ICON_HELP_ABOUT = "help-about.png";
@@ -56,7 +61,11 @@ public class IconManager {
 	}
 	
 	public Icon getIcon(String size,String name) {
-		URL url = getClass().getResource(size+"/"+name);
+		URL url = IconManager.class.getResource(size+"/"+name);
+		if (url==null) {
+			log.error("Unable to find icon " + name+" in size " + size);
+			return null;
+		}
 		return new ImageIcon(url);
 	}
 }

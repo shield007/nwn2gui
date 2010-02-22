@@ -33,6 +33,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -62,6 +63,7 @@ import org.stanwood.nwn2.gui.options.OptionsDialog;
 import org.stanwood.nwn2.gui.parser.NWN2GUIParser;
 import org.stanwood.swing.AboutDialog;
 import org.stanwood.swing.Author;
+import org.stanwood.swing.StandardActions;
 import org.stanwood.swing.icons.IconManager;
 
 public class MainWindow extends JFrame {
@@ -162,10 +164,7 @@ public class MainWindow extends JFrame {
 		});
         mnuFile.add(newAction);
                 
-        JMenuItem exitAction = new JMenuItem("Exit");        
-        exitAction.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_APPLICATION_EXIT));
-        exitAction.setMnemonic('x');        
-        exitAction.addActionListener(new ActionListener() {			
+        Action exitAction = StandardActions.getApplicationExit(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeWindow();
@@ -187,12 +186,9 @@ public class MainWindow extends JFrame {
         });
         mnuPrefences.add(pref);
         
-        
         JMenu mnuHelp = new JMenu("Help");
-        JMenuItem about = new JMenuItem("About");
-        about.setMnemonic('A');
-        about.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_HELP_ABOUT));
-        about.addActionListener(new ActionListener() {			
+        mnuHelp.setMnemonic('H');
+        Action helpAction = StandardActions.getAboutAction(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				  AboutDialog ad = new AboutDialog (MainWindow.this,
@@ -207,7 +203,7 @@ public class MainWindow extends JFrame {
 				  ad.setVisible(true);				
 			}
 		});
-        mnuHelp.add(about);
+        mnuHelp.add(helpAction);
         
         menuBar.add(mnuFile);
         menuBar.add(mnuPrefences);
