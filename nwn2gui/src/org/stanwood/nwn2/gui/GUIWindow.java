@@ -36,10 +36,17 @@ public class GUIWindow extends JFrame {
 
 		XMLGuiPanel panel = new XMLGuiPanel(scene);
 		getContentPane().add(panel);
-		setSize(scene.getWidth().getValue(screenDimension)+20, scene.getHeight()
-				.getValue(screenDimension)+20);
-		setLocation(scene.getX().getValue(screenDimension, scene), scene.getY()
-				.getValue(screenDimension, scene));
+		
+		if (scene.getFullscreen()) {
+			setLocation(0,0);
+			setSize(screenDimension.width,screenDimension.height);
+		}
+		else {		
+			setSize(scene.getWidth().getValue(screenDimension)+20, scene.getHeight()
+					.getValue(screenDimension)+20);
+			setLocation(scene.getX().getValue(screenDimension, scene), scene.getY()
+					.getValue(screenDimension, scene));
+		}
 		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

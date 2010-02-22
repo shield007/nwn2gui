@@ -72,24 +72,31 @@ public class UITextView extends UIObjectView {
 			FontMetrics metrics = g.getFontMetrics();
 			Rectangle2D bounds = metrics.getStringBounds(value, g);			
 			
-			
-			if (text.getValign().equals("middle")) {
+			String valign = text.getValign();
+			if (valign==null) {
+				valign="middle";
+			}
+			if (valign.equals("middle")) {
 				y +=(getHeight()/2)-((int)bounds.getCenterY());
 			}			
-			else if (text.getValign().equals("top")) {
+			else if (valign.equals("top")) {
 				y+=bounds.getHeight();
 			}
-			else if (text.getValign().equals("bottom")) {
+			else if (valign.equals("bottom")) {
 				y+=getHeight();
 			}
 			
-			if (text.getAlign().equals("left")) {
+			String halign = text.getAlign();
+			if (halign==null) {
+				halign="left";
+			}
+			if (halign.equals("left")) {
 				// Do nothing
 			}
-			else if (text.getAlign().equals("center")) {
+			else if (halign.equals("center")) {
 				x+=(getWidth()/2)-((int)bounds.getCenterX());
 			}
-			else if (text.getAlign().equals("right")) {
+			else if (halign.equals("right")) {
 				x+=getWidth()-((int)bounds.getWidth());
 			}
 					
