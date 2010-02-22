@@ -222,7 +222,7 @@ public class MainWindow extends JFrame {
 		
 		buttonPanel2.setLayout(new GridLayout(4, 1,5,5));
 				
-		JButton cmdAdd = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_ADD));
+		JButton cmdAdd = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_LIST_ADD));
 		cmdAdd.setToolTipText("Add a XML GUI file to the list");
 		cmdAdd.addActionListener(new ActionListener() {
 			@Override
@@ -233,7 +233,7 @@ public class MainWindow extends JFrame {
 		});
 		
 		buttonPanel2.add(cmdAdd);
-		cmdRemove = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_REMOVE));
+		cmdRemove = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_LIST_REMOVE));
 		cmdRemove.setToolTipText("Remove the selected XML GUI file from the list");
 		cmdRemove.addActionListener(new ActionListener() {
 			@Override
@@ -245,7 +245,7 @@ public class MainWindow extends JFrame {
 		});
 		
 		buttonPanel2.add(cmdRemove);
-		cmdDisplay = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_VIEW));
+		cmdDisplay = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_LIST_VIEW));
 		cmdDisplay.setToolTipText("Render the selected XML GUI file");
 		cmdDisplay.addActionListener(new ActionListener() {			
 			@Override
@@ -255,7 +255,7 @@ public class MainWindow extends JFrame {
 		});
 		buttonPanel2.add(cmdDisplay);
 		
-		cmdEdit = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_ACCESSORIES_TEXT_EDITOR));
+		cmdEdit = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_ACCESSORIES_TEXT_EDITOR));
 		cmdEdit.setToolTipText("Open the selected XML GUI file in a editor");
 		cmdEdit.addActionListener(new ActionListener() {			
 			@Override
