@@ -23,16 +23,23 @@ import javax.swing.ImageIcon;
 
 public class IconManager {
 
+	public final static String ICON_APPLICATION_EXIT = "application-exit.png";
+	public final static String ICON_DIALOG_CLOSE = "dialog-close.png";
+	public final static String ICON_HELP_ABOUT = "help-about.png";
 	public final static String ICON_LIST_ADD = "list-add.png";
 	public final static String ICON_LIST_REMOVE = "list-remove.png";
 	public final static String ICON_LIST_VIEW = "list-view.png";
 	public final static String ICON_DIALOG_HEADER_CORNER = "dialog-header-corner.png";
 	public final static String ICON_PREFERENCES_SYSTEM = "preferences-system.png";
 	public final static String ICON_ACCESSORIES_TEXT_EDITOR = "accessories-text-editor.png";
+	public final static String ICON_DIALOG_CANCEL = "dialog-cancel.png";
+	public final static String ICON_DIALOG_OK_APPLY = "dialog-ok-apply.png";
+	public final static String ICON_DIALOG_OK = "dialog-ok.png";
 	
 	public final static String SIZE_16 = "i16";
 	public final static String SIZE_22 = "i22";	
 	public final static String SIZE_48 = "i48";
+	
 	
 	private static IconManager instance = null;
 	

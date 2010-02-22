@@ -168,6 +168,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		panel.add(cmdOk);
 		cmdOk.addActionListener(this);
 		cmdOk.setText("Ok");
+		cmdOk.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_OK));
 		cmdOk.setMnemonic('O');
 		getRootPane().setDefaultButton(cmdOk);
 
@@ -175,11 +176,13 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		cmdCancel.setText("Cancel");
 		cmdCancel.setMnemonic('A');
 		cmdCancel.addActionListener(this);
+		cmdCancel.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_CANCEL));
 		panel.add(cmdCancel);
 
 		cmdApply = new JButton();
 		cmdApply.setText("Apply");
 		cmdApply.setMnemonic('A');
+		cmdApply.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_OK_APPLY));
 		cmdApply.addActionListener(this);
 		panel.add(cmdApply);
 		panel2.add(panel, BorderLayout.EAST);
