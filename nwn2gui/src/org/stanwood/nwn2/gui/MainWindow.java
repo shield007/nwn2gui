@@ -56,6 +56,7 @@ import org.stanwood.nwn2.gui.logging.LogSetupHelper;
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.nwn2.gui.options.OptionsDialog;
 import org.stanwood.nwn2.gui.parser.NWN2GUIParser;
+import org.stanwood.swing.AboutDialog;
 import org.stanwood.swing.icons.IconManager;
 
 public class MainWindow extends JFrame {
@@ -146,6 +147,24 @@ public class MainWindow extends JFrame {
         	
         });
         prefencesMenu.add(pref);
+        
+        
+        JMenu mnuHelp = new JMenu("Prefences");
+        JMenuItem about = new JMenuItem("About");
+        about.setMnemonic('A');
+        about.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				  AboutDialog ad = new AboutDialog (null,
+				          "NWN2GUI",
+				          "NWN2GUI 0.1 (Beta 1)",
+				          "by John-Paul Stanford",
+				          "http://code.google.com/p/nwn2gui/");
+				  ad.setVisible(true);
+				
+			}
+		});
+        mnuHelp.add(about);
         
         menuBar.add(fileMenu);
         menuBar.add(prefencesMenu);
