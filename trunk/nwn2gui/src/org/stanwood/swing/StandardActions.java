@@ -29,9 +29,12 @@ import org.stanwood.swing.icons.IconManager;
 
 public class StandardActions {
 
-
 	private static final String COMMAND_KEY_HELP_ABOUT = "helpAbout";	
 	private static final String COMMAND_KEY_APPLICATION_EXIT = "appExit";
+	private static final Object COMMAND_KEY_DIALOG_APPLY = "dialogApply";
+	private static final Object COMMAND_KEY_DIALOG_CANCEL = "dialogCancel";
+	private static final Object COMMAND_KEY_DIALOG_OK = "dialogOk";
+	private static final Object COMMAND_KEY_DIALOG_CLOSE = "dialogClose";
 
 	public static Action getApplicationExit(ActionListener actionListener) {
 		Action action = createAction(actionListener);
@@ -55,6 +58,58 @@ public class StandardActions {
 		action.putValue(Action.LARGE_ICON_KEY, IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_HELP_ABOUT ));
 		action.putValue(Action.SMALL_ICON, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_HELP_ABOUT ));
 		action.putValue(Action.SHORT_DESCRIPTION, "About the application");
+		
+		return action;
+	}
+	
+	public static Action getDialogApplyAction(ActionListener actionListener) {
+		Action action = createAction(actionListener);
+		
+		action.putValue(Action.NAME, "Apply");
+		action.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
+		action.putValue(Action.ACTION_COMMAND_KEY, COMMAND_KEY_DIALOG_APPLY);
+		action.putValue(Action.LARGE_ICON_KEY, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_OK_APPLY ));
+		action.putValue(Action.SMALL_ICON, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_OK_APPLY ));
+		action.putValue(Action.SHORT_DESCRIPTION, "Apply settings");
+		
+		return action;
+	}
+	
+	public static Action getDialogOkAction(ActionListener actionListener) {
+		Action action = createAction(actionListener);
+		
+		action.putValue(Action.NAME, "Ok");
+		action.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
+		action.putValue(Action.ACTION_COMMAND_KEY, COMMAND_KEY_DIALOG_OK);
+		action.putValue(Action.LARGE_ICON_KEY, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_OK ));
+		action.putValue(Action.SMALL_ICON, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_OK ));
+		action.putValue(Action.SHORT_DESCRIPTION, "Apply settings and close dialog");
+		
+		return action;
+	}
+	
+	public static Action getDialogCancelAction(ActionListener actionListener) {
+		Action action = createAction(actionListener);
+		
+		action.putValue(Action.NAME, "Cancel");
+		action.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
+		action.putValue(Action.ACTION_COMMAND_KEY, COMMAND_KEY_DIALOG_CANCEL);
+		action.putValue(Action.LARGE_ICON_KEY, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_CANCEL ));
+		action.putValue(Action.SMALL_ICON, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_CANCEL ));
+		action.putValue(Action.SHORT_DESCRIPTION, "Cancel changes and close dialog");
+		
+		return action;
+	}
+
+	public static Action getDialogCloseAction(ActionListener actionListener) {
+		Action action = createAction(actionListener);
+		
+		action.putValue(Action.NAME, "Close");
+		action.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
+		action.putValue(Action.ACTION_COMMAND_KEY, COMMAND_KEY_DIALOG_CLOSE);
+		action.putValue(Action.LARGE_ICON_KEY, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_CLOSE ));
+		action.putValue(Action.SMALL_ICON, IconManager.getInstance().getIcon(IconManager.SIZE_16,IconManager.ICON_DIALOG_CLOSE ));
+		action.putValue(Action.SHORT_DESCRIPTION, "Close the dialog");
 		
 		return action;
 	}

@@ -39,7 +39,6 @@ import javax.swing.border.Border;
 
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
-import org.stanwood.swing.icons.IconManager;
 
 public class AboutDialog extends EnhancedDialog {
 	
@@ -152,14 +151,11 @@ public class AboutDialog extends EnhancedDialog {
 	private void createButtonPane(Box box) {
 		Box hBox = Box.createHorizontalBox();
 		hBox.add(Box.createHorizontalGlue());
-		JButton cmdClose = new JButton("Close");
-		cmdClose.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_CLOSE));
-		cmdClose.setMnemonic('C');
-		cmdClose.addActionListener(new ActionListener() {
+		JButton cmdClose = new JButton(StandardActions.getDialogCloseAction(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancel();
 			}
-		});
+		}));
 		hBox.add(cmdClose);
 		box.add(hBox);
 		

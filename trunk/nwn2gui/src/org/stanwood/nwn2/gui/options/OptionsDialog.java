@@ -43,6 +43,7 @@ import org.jdesktop.swingx.util.WindowUtils;
 import org.stanwood.nwn2.gui.options.panels.ApperanceOptionPanel;
 import org.stanwood.nwn2.gui.options.panels.NWN2ContentOptionPanel;
 import org.stanwood.swing.EnhancedDialog;
+import org.stanwood.swing.StandardActions;
 import org.stanwood.swing.icons.IconManager;
 
 public class OptionsDialog extends EnhancedDialog implements ActionListener {
@@ -164,26 +165,14 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 		panel.setLayout(new GridLayout(1,0,5,5));
-		cmdOk = new JButton();
+		cmdOk = new JButton(StandardActions.getDialogOkAction(this));	
 		panel.add(cmdOk);
-		cmdOk.addActionListener(this);
-		cmdOk.setText("Ok");
-		cmdOk.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_OK));
-		cmdOk.setMnemonic('O');
 		getRootPane().setDefaultButton(cmdOk);
 
-		cmdCancel = new JButton();
-		cmdCancel.setText("Cancel");
-		cmdCancel.setMnemonic('A');
-		cmdCancel.addActionListener(this);
-		cmdCancel.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_CANCEL));
+		cmdCancel = new JButton(StandardActions.getDialogCancelAction(this));		
 		panel.add(cmdCancel);
 
-		cmdApply = new JButton();
-		cmdApply.setText("Apply");
-		cmdApply.setMnemonic('A');
-		cmdApply.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_OK_APPLY));
-		cmdApply.addActionListener(this);
+		cmdApply = new JButton(StandardActions.getDialogApplyAction(this));		
 		panel.add(cmdApply);
 		panel2.add(panel, BorderLayout.EAST);
 		this.add(panel2, BorderLayout.SOUTH);
