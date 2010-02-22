@@ -38,6 +38,7 @@ import javax.swing.border.Border;
 
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
+import org.stanwood.swing.icons.IconManager;
 
 public class AboutDialog extends EnhancedDialog {
 	
@@ -104,10 +105,9 @@ public class AboutDialog extends EnhancedDialog {
 	private JComponent createAuthorsTab() {
 		JScrollPane scroll = new JScrollPane();
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scroll.getViewport().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);		
 		Box box = Box.createVerticalBox();
+		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		for (Author author : authors) {
 			box.add(new JLabel(author.getName()));	
 			JXHyperlink link = new JXHyperlink(new LinkAction(author.getEmail(),"emailto:"+author.getEmail()));
@@ -143,6 +143,7 @@ public class AboutDialog extends EnhancedDialog {
 		Box hBox = Box.createHorizontalBox();
 		hBox.add(Box.createHorizontalGlue());
 		JButton cmdClose = new JButton("Close");
+		cmdClose.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_DIALOG_CLOSE));
 		cmdClose.setMnemonic('C');
 		cmdClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

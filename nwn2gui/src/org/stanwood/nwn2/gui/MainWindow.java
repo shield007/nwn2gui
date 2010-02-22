@@ -125,6 +125,7 @@ public class MainWindow extends JFrame {
         mnuFile.setMnemonic('F');
         JMenuItem newAction = new JMenuItem("Add GUI file");
         newAction.setMnemonic('A');
+        newAction.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_LIST_ADD));
         newAction.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,6 +135,7 @@ public class MainWindow extends JFrame {
         mnuFile.add(newAction);
                 
         JMenuItem exitAction = new JMenuItem("Exit");
+        exitAction.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_APPLICATION_EXIT));
         exitAction.setMnemonic('x');
         exitAction.addActionListener(new ActionListener() {			
 			@Override
@@ -161,6 +163,7 @@ public class MainWindow extends JFrame {
         JMenu mnuHelp = new JMenu("Help");
         JMenuItem about = new JMenuItem("About");
         about.setMnemonic('A');
+        about.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_16, IconManager.ICON_HELP_ABOUT));
         about.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
