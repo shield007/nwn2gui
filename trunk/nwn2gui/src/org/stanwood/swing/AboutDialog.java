@@ -29,7 +29,6 @@ import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
@@ -38,7 +37,7 @@ import javax.swing.border.Border;
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
 
-public class AboutDialog extends JDialog {
+public class AboutDialog extends EnhancedDialog {
 	
 	private Icon icon;
 	private String title;
@@ -47,13 +46,11 @@ public class AboutDialog extends JDialog {
 	private String message;
 	private List<Author>authors = new ArrayList<Author>();
 
-	public AboutDialog(JFrame parent, String title,String version) {
-		
+	public AboutDialog(JFrame parent, String title,String version) {		
 		super(parent, "About " +title, true);
 		this.title = title;
 		this.version = version;
 
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		Border border = BorderFactory.createEmptyBorder(5,5,5,5);		
 		getRootPane().setBorder(border);		
 	}
@@ -144,11 +141,13 @@ public class AboutDialog extends JDialog {
 		cmdClose.setMnemonic('C');
 		cmdClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				cancel();
 			}
 		});
 		hBox.add(cmdClose);
 		box.add(hBox);
+		
+		box.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
 		
 		cmdClose.requestFocusInWindow();
 	}
@@ -169,9 +168,20 @@ public class AboutDialog extends JDialog {
 			putValue(Action.SHORT_DESCRIPTION, link);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			String link = (String) getValue(Action.SHORT_DESCRIPTION);			
 			BareBonesBrowserLaunch.openURL(link);
 		}
+	}
+
+	@Override
+	public void cancel() {
+		dispose();
+	}
+
+	@Override
+	public void ok() {
+		dispose();
 	}
 }
