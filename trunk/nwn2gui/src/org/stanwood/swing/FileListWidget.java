@@ -80,7 +80,7 @@ public class FileListWidget extends JPanel {
 		
 		buttonPanel2.setLayout(new GridLayout(3, 1,5,5));
 				
-		JButton cmdAdd = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_ADD));
+		JButton cmdAdd = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_LIST_ADD));
 		cmdAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class FileListWidget extends JPanel {
 		});
 		
 		buttonPanel2.add(cmdAdd);
-		cmdRemove = new JButton(IconManager.getInstance().getIcon(IconManager.ICON_LIST_REMOVE));
+		cmdRemove = new JButton(IconManager.getInstance().getIcon(IconManager.SIZE_22,IconManager.ICON_LIST_REMOVE));
 		cmdRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

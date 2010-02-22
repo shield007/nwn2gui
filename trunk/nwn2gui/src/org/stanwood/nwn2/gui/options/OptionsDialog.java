@@ -90,7 +90,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		header = new JXHeader();		
 		header.setTitle("NWN2GUI Settings");
 		header.setBackground(Color.white);
-		header.setIcon(IconManager.getInstance().getIcon(IconManager.ICON_PREFERENCES_SYSTEM));
+		header.setIcon(IconManager.getInstance().getIcon(IconManager.SIZE_48,IconManager.ICON_PREFERENCES_SYSTEM));
 		header.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		add(header,BorderLayout.NORTH);
 		

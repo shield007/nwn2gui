@@ -30,6 +30,10 @@ public class IconManager {
 	public final static String ICON_PREFERENCES_SYSTEM = "preferences-system.png";
 	public final static String ICON_ACCESSORIES_TEXT_EDITOR = "accessories-text-editor.png";
 	
+	public final static String SIZE_16 = "i16";
+	public final static String SIZE_22 = "i22";	
+	public final static String SIZE_48 = "i48";
+	
 	private static IconManager instance = null;
 	
 	private IconManager() {
@@ -43,8 +47,8 @@ public class IconManager {
 		return instance;
 	}
 	
-	public Icon getIcon(String name) {
-		URL url = getClass().getResource(name);
+	public Icon getIcon(String size,String name) {
+		URL url = getClass().getResource(size+"/"+name);
 		return new ImageIcon(url);
 	}
 }
