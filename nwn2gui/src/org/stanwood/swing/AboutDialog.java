@@ -43,6 +43,8 @@ import org.stanwood.swing.icons.IconManager;
 
 public class AboutDialog extends EnhancedDialog {
 	
+	private static final long serialVersionUID = 7038991844104135431L;
+	
 	private Icon icon;
 	private String title;
 	private String version;
@@ -82,11 +84,14 @@ public class AboutDialog extends EnhancedDialog {
 		}
 		else {
 			Box hbox = Box.createHorizontalBox();
+			hbox.add(Box.createHorizontalStrut(40));
 			hbox.add(new JLabel(icon));
+			hbox.add(Box.createHorizontalStrut(10));
 			box.add(hbox);
 			Box vbox = Box.createVerticalBox();
 			createTitleArea(vbox,title,version);
-			box.add(vbox);			
+			hbox.add(vbox);		
+			hbox.add(Box.createHorizontalGlue());
 		}
 				
 		JTabbedPane infoTabbedPane = new JTabbedPane();
@@ -178,6 +183,8 @@ public class AboutDialog extends EnhancedDialog {
 	}
 
 	private static class LinkAction extends AbstractAction {
+		private static final long serialVersionUID = 4127702255942800989L;
+
 		LinkAction(String linkText, String link) {
 			putValue(Action.NAME, linkText);
 			putValue(Action.SHORT_DESCRIPTION, link);

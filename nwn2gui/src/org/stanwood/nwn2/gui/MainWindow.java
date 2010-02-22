@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,6 +35,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -95,7 +97,10 @@ public class MainWindow extends JFrame {
 		getContentPane().add(panel);
 		setSize(500,300);				
 		setLocation(WindowUtils.getPointForCentering(this));
-		setWindowIcon();
+		BufferedImage icon = getWindowIcon("nwn2gui22.png");
+		if (icon!=null) {
+			setIconImage(icon);
+		}
 		
 		addWindowListener(new WindowAdapter(){
 			@Override
@@ -111,11 +116,11 @@ public class MainWindow extends JFrame {
 		NWN2ResourceHandler.indexResources();		
 	}
 
-	private void setWindowIcon() {
+	private BufferedImage getWindowIcon(String icon) {
 		InputStream is = null;
 		try {
-			is = MainWindow.class.getResourceAsStream("nwn2gui22.png");
-			setIconImage(ImageIO.read(is));
+			is = MainWindow.class.getResourceAsStream(icon);
+			return ImageIO.read(is);
 		} catch (IOException e) {
 			log.error(e.getMessage(),e);
 		}
@@ -128,6 +133,7 @@ public class MainWindow extends JFrame {
 				}
 			}
 		}
+		return null;
 	}	
 	
 	protected void closeWindow() {
@@ -196,9 +202,9 @@ public class MainWindow extends JFrame {
 				  ad.setApplicationWebLink("http://code.google.com/p/nwn2gui/");
 				  ad.setMessage("A NWN2 GUI XML viewer.\n\n (C) 2010, The NWN2 GUI developers");
 				  ad.addAuthor(new Author("John-Paul Stanford","dev@stanwood.org.uk","Lead developer and project creator"));
-				  ad.init();
-				  ad.setVisible(true);
-				
+				  ad.setIcon(new ImageIcon(MainWindow.class.getResource("nwn2gui48.png")));
+				  ad.init();				  
+				  ad.setVisible(true);				
 			}
 		});
         mnuHelp.add(about);
