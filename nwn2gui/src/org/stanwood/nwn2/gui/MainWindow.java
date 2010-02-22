@@ -112,8 +112,8 @@ public class MainWindow extends JFrame {
 	private void createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         
-        JMenu fileMenu = new JMenu("File");
-        fileMenu.setMnemonic('F');
+        JMenu mnuFile = new JMenu("File");
+        mnuFile.setMnemonic('F');
         JMenuItem newAction = new JMenuItem("Add GUI file");
         newAction.setMnemonic('A');
         newAction.addActionListener(new ActionListener() {			
@@ -122,7 +122,7 @@ public class MainWindow extends JFrame {
 				addNewGUIFile();
 			}
 		});
-        fileMenu.add(newAction);
+        mnuFile.add(newAction);
                 
         JMenuItem exitAction = new JMenuItem("Exit");
         exitAction.setMnemonic('x');
@@ -132,10 +132,10 @@ public class MainWindow extends JFrame {
 				closeWindow();
 			}
 		});
-        fileMenu.add(exitAction);
+        mnuFile.add(exitAction);
         
-        JMenu prefencesMenu = new JMenu("Prefences");
-        prefencesMenu.setMnemonic('P');     
+        JMenu mnuPrefences = new JMenu("Prefences");
+        mnuPrefences.setMnemonic('P');     
         
         JMenuItem pref = new JMenuItem("Options");
         pref.setMnemonic('O');
@@ -146,10 +146,10 @@ public class MainWindow extends JFrame {
 			}
         	
         });
-        prefencesMenu.add(pref);
+        mnuPrefences.add(pref);
         
         
-        JMenu mnuHelp = new JMenu("Prefences");
+        JMenu mnuHelp = new JMenu("Help");
         JMenuItem about = new JMenuItem("About");
         about.setMnemonic('A');
         about.addActionListener(new ActionListener() {			
@@ -166,8 +166,9 @@ public class MainWindow extends JFrame {
 		});
         mnuHelp.add(about);
         
-        menuBar.add(fileMenu);
-        menuBar.add(prefencesMenu);
+        menuBar.add(mnuFile);
+        menuBar.add(mnuPrefences);
+        menuBar.add(mnuHelp);
         
         setJMenuBar(menuBar);
 	}
