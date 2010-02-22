@@ -16,33 +16,50 @@
  */
 package org.stanwood.nwn2.gui.view;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import javax.swing.JPanel;
-
+import org.jdesktop.swingx.JXBusyLabel;
+import org.jdesktop.swingx.JXPanel;
 import org.stanwood.nwn2.gui.model.NWN2GUIObject;
 import org.stanwood.nwn2.gui.model.UIScene;
 
-public class XMLGuiPanel extends JPanel {
+public class XMLGuiPanel extends JXPanel {
 	
 	private static final long serialVersionUID = 3199212196302509796L;
 	private UISceneView sceneView;
+	private boolean ready = false;
 
 	public XMLGuiPanel(UIScene scene) {		
-		createViewObjects(scene);
+		createViewObjects(scene);		
 	}
 
-	private void createViewObjects(UIScene scene) {
-		sceneView = new UISceneView();
-		for (int i=scene.getChildren().size()-1;i>=0;i--) {
-    		NWN2GUIObject uiObject =scene.getChildren().get(i); 
-    		UIObjectView viewObject = UIObjectFactory.createViewObject(uiObject,scene);
-    		if (viewObject!=null) {
-    			sceneView.addChild(viewObject);
-    		}
-    	}
+	private void createViewObjects(final UIScene scene) {
+		setLayout(new BorderLayout(5,5));
+		final JXBusyLabel label = new JXBusyLabel();
+		label.setToolTipText("Parseing the scene");		 
+		add(label,BorderLayout.CENTER);
+		
+		Thread t = new Thread() {
+			@Override
+			public void run() {				
+				sceneView = new UISceneView();
+				for (int i=scene.getChildren().size()-1;i>=0;i--) {
+		    		NWN2GUIObject uiObject =scene.getChildren().get(i); 
+		    		UIObjectView viewObject = UIObjectFactory.createViewObject(uiObject,scene);
+		    		if (viewObject!=null) {
+		    			sceneView.addChild(viewObject);
+		    		}
+		    	}
+				label.setVisible(false);
+				ready = true;
+				
+			}			
+		};
+		t.start();
+
 	}
 
 	// Since we're always going to fill our entire
@@ -54,6 +71,10 @@ public class XMLGuiPanel extends JPanel {
 
     @Override
 	protected void paintComponent(Graphics g) {
+    	if (!ready) {
+    		super.paintComponent(g);
+    		return;
+    	}
     	Graphics2D g2 = (Graphics2D)g;
     	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
