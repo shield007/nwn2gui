@@ -17,6 +17,7 @@
 
 package org.stanwood.swing;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -123,6 +124,9 @@ public class AboutDialog extends EnhancedDialog {
 	}
 
 	private JComponent createAboutTab() {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);		
 		Box box = Box.createVerticalBox();
 		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		box.add(Box.createVerticalGlue());
@@ -136,7 +140,8 @@ public class AboutDialog extends EnhancedDialog {
 			box.add(link);
 		}
 		box.add(Box.createVerticalGlue());
-		return box;
+		scroll.getViewport().add(box);
+		return scroll;
 	}
 	
 	private void createButtonPane(Box box) {
@@ -162,8 +167,12 @@ public class AboutDialog extends EnhancedDialog {
 	private void createTitleArea(Box box, String title, String version) {
 		JLabel lblTitle = new JLabel(title);
 		lblTitle.setHorizontalTextPosition(JLabel.LEFT);
+		lblTitle.setHorizontalAlignment(JLabel.LEFT);
+		lblTitle.setFont(new Font("Serif",Font.BOLD,24));
 		box.add(lblTitle);
 		JLabel lblVersion = new JLabel(version);
+		lblVersion.setFont(new Font("Serif",Font.BOLD,12));
+		lblVersion.setHorizontalAlignment(JLabel.LEFT);
 		lblVersion.setHorizontalTextPosition(JLabel.LEFT);
 		box.add(lblVersion);		
 	}
