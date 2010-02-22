@@ -31,7 +31,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
 import org.jdesktop.swingx.JXHyperlink;
@@ -95,14 +97,17 @@ public class AboutDialog extends EnhancedDialog {
 		createButtonPane(box);
 		
 		setContentPane(box);
-		setSize(300,200);
+		setSize(450,280);
 		setLocationRelativeTo(getParent());				
 	}	
 	
 	private JComponent createAuthorsTab() {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scroll.getViewport().setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
 		Box box = Box.createVerticalBox();
-		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		
 		for (Author author : authors) {
 			box.add(new JLabel(author.getName()));	
 			JXHyperlink link = new JXHyperlink(new LinkAction(author.getEmail(),"emailto:"+author.getEmail()));
@@ -113,8 +118,8 @@ public class AboutDialog extends EnhancedDialog {
 			box.add(lblDescription);
 		}
 		
-		
-		return box;
+		scroll.getViewport().add(box);
+		return scroll;
 	}
 
 	private JComponent createAboutTab() {
@@ -147,7 +152,7 @@ public class AboutDialog extends EnhancedDialog {
 		hBox.add(cmdClose);
 		box.add(hBox);
 		
-		box.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
+		hBox.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
 		
 		cmdClose.requestFocusInWindow();
 	}
