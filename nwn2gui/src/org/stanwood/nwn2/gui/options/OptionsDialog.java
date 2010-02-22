@@ -75,7 +75,7 @@ public class OptionsDialog extends EnhancedDialog implements ActionListener {
 		lstOptions.setSelectedIndex(0);
 		selectionChanged();
 		
-		setSize(400,400);
+		setSize(600,400);
 		
 		setLocation(WindowUtils.getPointForCentering(this));		
 	}
