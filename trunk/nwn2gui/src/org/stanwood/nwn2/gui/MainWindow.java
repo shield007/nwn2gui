@@ -41,11 +41,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -136,27 +134,7 @@ public class MainWindow extends JFrame {
         fileMenu.add(exitAction);
         
         JMenu prefencesMenu = new JMenu("Prefences");
-        prefencesMenu.setMnemonic('P');
-        
-        JMenu lookAndFeelMenu = new JMenu("Look and feel");
-        LookAndFeelInfo[] lafs = UIManager.getInstalledLookAndFeels();
-        if (lafs!=null) {
-        	String currentLaf = UIManager.getLookAndFeel().getName();
-	        for (final LookAndFeelInfo laf : lafs) {
-	        	JRadioButtonMenuItem item = new JRadioButtonMenuItem(laf.getName());
-	        	item.addActionListener(new ActionListener() {					
-					@Override
-					public void actionPerformed(ActionEvent e) {						
-						changeLookAndFeel(laf.getClassName()); 
-					}
-
-					
-				});
-	        	lookAndFeelMenu.add(item);	        	
-	        	item.setSelected(laf.getName().equals(currentLaf)); 	
-	        }
-        }
-        prefencesMenu.add(lookAndFeelMenu);
+        prefencesMenu.setMnemonic('P');     
         
         JMenuItem pref = new JMenuItem("Options");
         pref.setMnemonic('O');

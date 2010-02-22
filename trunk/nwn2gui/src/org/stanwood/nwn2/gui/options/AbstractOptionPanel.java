@@ -23,11 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public abstract class AbstractOptionDialog extends JPanel implements IOptionsPanel {
+public abstract class AbstractOptionPanel extends JPanel implements IOptionsPanel {
 
 	private static final long serialVersionUID = -8526220764053684079L;
 
-	public AbstractOptionDialog() {
+	public AbstractOptionPanel() {
 		init();
 	}
 
