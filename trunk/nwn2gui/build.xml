@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<project name="NWN2GUI" basedir="." default="dist">
+	
+	<!-- Allow properties to be overridden by a property file -->
+	<property file="build.properties" />
+	
+	<!-- Path properties -->
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="build.dir" value="${basedir}/bin"/>
+	<property name="dist.dir" value="${basedir}/dist"/>
+	<property name="libs.dir" value="${basedir}/libs"/>
+	<property name="etc.dir" value="${basedir}/etc"/>	
+	<property name="reports.dir" value="${basedir}/reports"/>	
+	<property name="docs.dir" location="${basedir}/docs"/>
+	<property name="api.docs.dir" location="${docs.dir}/api" />
+	
+	<!-- Compiler properties -->
+	<property name="javac.source" value="1.6" />
+	<property name="javac.target" value="1.6" />
+	
+	<!-- Dist properties -->
+	<property name="project.version" value="0.1-Beta" />
+	<property name="project.author" value="John-Paul Stanford" />
+	<property name="project.email" value="dev@stanwood.org.uk" />
+	<property name="project.summary" value="nwn2gui is a cross platform application to display Neverwinter Nights 2 GUI XML files."/>
+	
+	<path id="runtime.libs">
+        <fileset dir="${libs.dir}/run-time">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+	
+	<path id="compile.libs">
+        <fileset dir="${libs.dir}/compile-time">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+	
+	 <target name="clean">
+        <delete dir="${build.dir}"/>
+    	<delete dir="${dist.dir}"/>
+    	<delete dir="${reports.dir}"/>
+    	<delete dir="${api.docs.dir}" />		
+		<delete dir="${reports.dir}"/>
+    </target>
+	
+	<target name="init" depends="clean">    	
+    	<!-- Create the time stamp -->
+    	<tstamp />
+    		
+    	<mkdir dir="${dist.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    	<mkdir dir="${api.docs.dir}" />
+    	<mkdir dir="${reports.dir}"/>
+    </target>
+	
+	<target name="compile" depends="init">
+    	<javac debug="true" destdir="${build.dir}" target="${javac.target}" source="${javac.source}">            
+            <src path="${src.dir}"/>        
+        	<classpath>
+				<path refid="runtime.libs"/>				
+        		<path refid="compile.libs"/>
+			</classpath>            
+        </javac>
+    </target>
+	
+	<target name="javadoc">
+		<delete dir="${api.docs.dir}"/>
+        <javadoc                                        
+            destdir="${api.docs.dir}"
+            author="true"
+            version="true"
+            use="true"
+            windowtitle="${ant.project.name} ${project.version}">
+        	<packageset dir="${src.dir}" defaultexcludes="yes">
+        	      <include name="org/stanwood/**"/>        
+    	    </packageset>
+        	
+        	<classpath>
+        		<path refid="runtime.libs"/>
+				<path refid="compile.libs"/>
+        	</classpath>
+        	
+        	<doctitle><![CDATA[<h1>]]>${ant.project.name} ${project.version}<![CDATA[</h1>]]></doctitle>
+        </javadoc>
+	</target>
+	
+	<target name="jars">
+    	<echo message="${ant.project.name} ${project.version}" file="${basedir}/VERSION" />
+    	
+    	<jar jarfile="${dist.dir}/${ant.project.name}-${project.version}-src.jar" compress="true">
+			<fileset dir="${src.dir}" />				
+		</jar>
+    	
+    	<zip zipfile="${dist.dir}/${ant.project.name}-${project.version}-src.zip" compress="true">
+			<zipfileset dir="${src.dir}" prefix="${ant.project.name}-${project.version}/src"/>			
+			<zipfileset dir="${etc.dir}" prefix="${ant.project.name}-${project.version}/etc"/>	
+    		<zipfileset file="${basedir}/TODO" prefix="${ant.project.name}-${project.version}"/>
+			<zipfileset file="${basedir}/VERSION" prefix="${ant.project.name}-${project.version}"/>
+			<zipfileset file="${basedir}/COPYING" prefix="${ant.project.name}-${project.version}"/>
+    		<zipfileset file="${basedir}/Changelog" prefix="${ant.project.name}-${project.version}"/>
+    		<zipfileset file="${basedir}/Description" prefix="${ant.project.name}-${project.version}"/>
+			<zipfileset file="${basedir}/.project" prefix="${ant.project.name}-${project.version}"/>
+			<zipfileset file="${basedir}/.classpath" prefix="${ant.project.name}-${project.version}"/>
+    		<zipfileset dir="${basedir}/.settings" prefix="${ant.project.name}-${project.version}"/>
+    		<zipfileset file="${basedir}/.fbprefs" prefix="${ant.project.name}-${project.version}"/>
+		</zip>    	
+    	
+    	<zip zipfile="${dist.dir}/${ant.project.name}-${project.version}-apidocs.zip" basedir="${api.docs.dir}/.." compress="true" />
+    	
+    	<jar jarfile="${dist.dir}/${ant.project.name}-${project.version}.jar" basedir="${build.dir}" compress="true"/>
+    	
+    	<mkdir dir="${dist.dir}/bin/${ant.project.name}-${project.version}" />    			
+		<copy todir="${dist.dir}/bin/${ant.project.name}-${project.version}">
+			<fileset file="${basedir}/VERSION" />
+			<fileset file="${basedir}/COPYING" />							
+			<fileset file="${dist.dir}/${ant.project.name}-${project.version}.jar" />
+		</copy>    	
+    	<zip file="${dist.dir}/${ant.project.name}-${project.version}-bin.zip" basedir="${dist.dir}/bin" compress="true"/>    	
+    	<delete dir="${dist.dir}/bin" />    	       
+    </target>
+	
+	<target name="dist" depends="clean,compile,javadoc,jars"/>
+</project>
