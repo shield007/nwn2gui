@@ -38,8 +38,8 @@ public class XMLGuiPanel extends JXPanel {
 
 	private void createViewObjects(final UIScene scene) {
 		setLayout(new BorderLayout(5,5));
-		final JXBusyLabel label = new JXBusyLabel();
-		label.setToolTipText("Parseing the scene");		 
+		final JXBusyLabel label = new JXBusyLabel();		
+		label.setToolTipText("Parsing the scene");		 
 		add(label,BorderLayout.CENTER);
 		
 		Thread t = new Thread() {
