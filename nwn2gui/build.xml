@@ -148,9 +148,19 @@
 		</one-jar>
     </target>
 
-    <target name="exe">                
-            <launch4j configFile="${etc.dir}/jlaunch.xml" />
+    <target name="exe">    
+		<unzip src="${etc.dir}/launch4j-bin.zip" dest="${dist.dir}"/>
+    	<unzip src="${etc.dir}/w32api.zip" dest="${libs.dir}/compile-time"/>
+    	<unzip src="${etc.dir}/head.zip" dest="${libs.dir}/compile-time"/>
+    	<chmod file="${dist.dir}/ld" perm="ugo+rx"/>
+    	<chmod file="${dist.dir}/windres" perm="ugo+rx"/>
+        <launch4j configFile="${etc.dir}/jlaunch.xml" bindir="dist"/>
+		<delete file="${dist.dir}/COPYING"/>
+		<delete file="${dist.dir}/ld"/>
+		<delete file="${dist.dir}/windres"/>
+		<delete dir="${libs.dir}/compile-time/w32api"/>
+		<delete dir="${libs.dir}/compile-time/head"/>		
     </target>
 	
-	<target name="dist" depends="clean,compile,javadoc,jars"/>
+	<target name="dist" depends="clean,compile,javadoc,jars,exe"/>
 </project>

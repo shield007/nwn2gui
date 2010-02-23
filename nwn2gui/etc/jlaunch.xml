@@ -1,9 +1,9 @@
 <launch4jConfig>
   <headerType>gui</headerType>
-  <jar>../SimpleApp.jar</jar>
-  <outfile>../NWN2GUI.exe</outfile>
+  <jar>../dist/NWN2GUI-0.1-Beta-static-bin.jar</jar>
+  <outfile>../dist/NWN2GUI.exe</outfile>
   <errTitle>NWN2GUI</errTitle>
-  <chdir>.</chdir>
+  <chdir>..</chdir>
   <customProcName>true</customProcName>
   <!-- 
   <icon>SimpleApp.ico</icon>
