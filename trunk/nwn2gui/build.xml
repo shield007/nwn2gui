@@ -158,6 +158,8 @@
 		<delete file="${dist.dir}/COPYING"/>
 		<delete file="${dist.dir}/ld"/>
 		<delete file="${dist.dir}/windres"/>
+    	<delete file="${dist.dir}/windres.exe"/>
+    	<delete file="${dist.dir}/ld.exe"/>
 		<delete dir="${libs.dir}/compile-time/w32api"/>
 		<delete dir="${libs.dir}/compile-time/head"/>		
     </target>
