@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import org.stanwood.nwn2.gui.model.UIScene;
@@ -34,20 +35,24 @@ public class GUIWindow extends JFrame {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenDimension = toolkit.getScreenSize();
 
-		XMLGuiPanel panel = new XMLGuiPanel(scene);
-		getContentPane().add(panel);
-		
-		if (scene.getFullscreen()) {
-			setLocation(0,0);
-			setSize(screenDimension.width,screenDimension.height);
+		if (scene!=null) {
+			XMLGuiPanel panel = new XMLGuiPanel(scene);
+			getContentPane().add(panel);		
+	
+			if (scene.getFullscreen()) {
+				setLocation(0,0);
+				setSize(screenDimension.width,screenDimension.height);
+			}
+			else {		
+				setSize(scene.getWidth().getValue(screenDimension)+20, scene.getHeight()
+						.getValue(screenDimension)+20);
+				setLocation(scene.getX().getValue(screenDimension, scene), scene.getY()
+						.getValue(screenDimension, scene));
+			}
 		}
-		else {		
-			setSize(scene.getWidth().getValue(screenDimension)+20, scene.getHeight()
-					.getValue(screenDimension)+20);
-			setLocation(scene.getX().getValue(screenDimension, scene), scene.getY()
-					.getValue(screenDimension, scene));
+		else {
+			JOptionPane.showMessageDialog(this, "Unable to parse scene","NWN2GUI Parser", JOptionPane.ERROR_MESSAGE);
 		}
-		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
