@@ -297,7 +297,7 @@ public class MainWindow extends JFrame {
 				}
 				catch (UnsupportedOperationException e1) {
 					//TODO add support for other platforms
-					JOptionPane.showMessageDialog(MainWindow.this, e1.getMessage(),"NWN2GUI Error",JOptionPane.ERROR_MESSAGE);				
+					JOptionPane.showMessageDialog(MainWindow.this,"Unable to find the systems default editor","NWN2GUI Error",JOptionPane.ERROR_MESSAGE);				
 				}
 			}			
 		});
