@@ -36,21 +36,19 @@ public class UIPaneView extends UIObjectView {
 	
 	private void createView(UIPane pane) {
 		if (!pane.getChildren().isEmpty() && (pane.getPrototype()==null || !pane.getPrototype())) {
-			List<NWN2GUIObject> children = pane.getChildren();			
-			int x = pane.getX().getValue(getScreenDimension(), getScene());
-			int y = pane.getY().getValue(getScreenDimension(), getScene());
+			List<NWN2GUIObject> children = pane.getChildren();		
+			int panePosX = pane.getX().getValue(getScreenDimension(), getScene()); 
+			int panePosY = pane.getY().getValue(getScreenDimension(), getScene());
 			
 			for (int i=0;i<children.size();i++) {
 				UIObject child = (UIObject) children.get(i);
 				UIObjectView viewChild = UIObjectFactory.createViewObject(child,getScene());
 				if (viewChild!=null) {
-					viewChild.setX(x);
-					viewChild.setY(y);
+					viewChild.setX(panePosX+child.getX().getValue(getScreenDimension(), getScene()));
+					viewChild.setY(panePosY+child.getY().getValue(getScreenDimension(), getScene()));
 					viewChild.positionChanged();					
 					addChild(viewChild);
 				}
-								
-				x+=child.getWidth().getValue(getScreenDimension());			
 			}
 		}
 		
