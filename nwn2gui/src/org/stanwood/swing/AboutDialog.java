@@ -17,9 +17,12 @@
 
 package org.stanwood.swing;
 
+import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +35,21 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.JXLabel;
 
 public class AboutDialog extends EnhancedDialog {
 	
 	private static final long serialVersionUID = 7038991844104135431L;
+	private final static Log log = LogFactory.getLog(AboutDialog.class);
 	
 	private Icon icon;
 	private String title;
@@ -115,7 +122,7 @@ public class AboutDialog extends EnhancedDialog {
 		box.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		for (Author author : authors) {
 			box.add(new JLabel(author.getName()));	
-			JXHyperlink link = new JXHyperlink(new LinkAction(author.getEmail(),"emailto:"+author.getEmail()));
+			JXHyperlink link = new JXHyperlink(new LinkAction(this,author.getEmail(),"mailto:"+author.getEmail()));
 			box.add(link);
 			link.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 			JLabel lblDescription = new JLabel(author.getDescription());
@@ -140,7 +147,7 @@ public class AboutDialog extends EnhancedDialog {
 			box.add(lblMessage);
 		}
 		if (appUrl!=null) {
-			JXHyperlink link = new JXHyperlink(new LinkAction(appUrl,appUrl));
+			JXHyperlink link = new JXHyperlink(new LinkAction(this,appUrl,appUrl));
 			box.add(link);
 		}
 		box.add(Box.createVerticalGlue());
@@ -180,16 +187,33 @@ public class AboutDialog extends EnhancedDialog {
 
 	private static class LinkAction extends AbstractAction {
 		private static final long serialVersionUID = 4127702255942800989L;
+		private Component parent;
 
-		LinkAction(String linkText, String link) {
+		LinkAction(Component parent,String linkText, String link) {
 			putValue(Action.NAME, linkText);
 			putValue(Action.SHORT_DESCRIPTION, link);
+			this.parent = parent;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String link = (String) getValue(Action.SHORT_DESCRIPTION);			
-			BareBonesBrowserLaunch.openURL(link);
+			String link = (String) getValue(Action.SHORT_DESCRIPTION);
+			if (link.startsWith("mailto")) {
+				try {
+					Desktop.getDesktop().mail(new URI(link));
+				} 
+				catch (UnsupportedOperationException e1) {
+					//TODO add support for other platforms
+					JOptionPane.showMessageDialog(parent, e1.getMessage(),"NWN2GUI Error",JOptionPane.ERROR_MESSAGE);
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(parent, e1.getMessage(),"NWN2GUI Error",JOptionPane.ERROR_MESSAGE);
+					log.error(e1.getMessage(),e1);
+				}
+			}
+			else {
+				BareBonesBrowserLaunch.openURL(link);
+			}
 		}
 	}
 

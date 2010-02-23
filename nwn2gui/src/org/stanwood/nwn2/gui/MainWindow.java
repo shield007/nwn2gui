@@ -45,6 +45,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -291,9 +292,14 @@ public class MainWindow extends JFrame {
 				try {
 					Desktop.getDesktop().edit(guiFile);
 				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(MainWindow.this, e1.getMessage(),"NWN2GUI Error",JOptionPane.ERROR_MESSAGE);
 					log.error(e1.getMessage(),e1);
 				}
-			}
+				catch (UnsupportedOperationException e1) {
+					//TODO add support for other platforms
+					JOptionPane.showMessageDialog(MainWindow.this, e1.getMessage(),"NWN2GUI Error",JOptionPane.ERROR_MESSAGE);				
+				}
+			}			
 		});
 		buttonPanel2.add(cmdEdit);
 		
@@ -364,10 +370,15 @@ public class MainWindow extends JFrame {
 			NWN2GUIParser parser = new NWN2GUIParser(fs);
 			parser.parse();
 
-			GUIWindow window = new GUIWindow("GUI: "+guiFile.getName(),parser.getGUI());
-			window.setVisible(true);
+			if (guiFile.exists()) {
+				GUIWindow window = new GUIWindow("GUI: "+guiFile.getName(),parser.getGUI());			
+				window.setVisible(true);
+			}
+			else {
+				JOptionPane.showInternalMessageDialog(this, "Unable to find GUI XML file '"+guiFile.getAbsolutePath()+"'","NWN2GUI Error",JOptionPane.ERROR_MESSAGE);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(),e);
 		} finally {
 			if (fs != null) {
 				try {
