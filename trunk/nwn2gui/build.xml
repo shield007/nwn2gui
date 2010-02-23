@@ -71,6 +71,13 @@
         		<path refid="compile.libs"/>
 			</classpath>            
         </javac>
+		
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/*"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
     </target>
 	
 	<target name="javadoc">
