@@ -44,14 +44,23 @@ public class UIPaneView extends UIObjectView {
 				UIObject child = (UIObject) children.get(i);
 				UIObjectView viewChild = UIObjectFactory.createViewObject(child,getScene());
 				if (viewChild!=null) {
-					viewChild.setX(panePosX+child.getX().getValue(getScreenDimension(), getScene()));
-					viewChild.setY(panePosY+child.getY().getValue(getScreenDimension(), getScene()));
+					int x = panePosX+child.getX().getValue(getScreenDimension(), getScene());
+					int y = panePosY+child.getY().getValue(getScreenDimension(), getScene());
+					viewChild.setX(x);
+					viewChild.setY(y);
+					updateChildren(viewChild,x,y);
 					viewChild.positionChanged();					
 					addChild(viewChild);
 				}
 			}
+		}		
+	}
+	
+	private void updateChildren(UIObjectView obj,int x,int y) {
+		for (UIObjectView child : obj.getChildren()) {
+			child.setX(x+child.getX());
+			child.setY(y+child.getY());		
 		}
-		
 	}
 
 }

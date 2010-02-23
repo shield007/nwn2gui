@@ -34,7 +34,18 @@ public class UIIconView extends UIObjectView {
 	public UIIconView(UIIcon icon,UIScene scene,Dimension screenDimension) {
 		super(icon,scene,screenDimension);
 		this.icon = icon;
-	
+		if (icon.getScaleWithScene()!=null && icon.getScaleWithScene()) {
+			int sceneWidth = screenDimension.width;
+			if (scene.getWidth()!=null) {
+				sceneWidth = scene.getWidth().getValue(screenDimension);
+			}
+			int sceneHeight = screenDimension.height;
+			if (scene.getHeight()!=null) {
+				sceneHeight = scene.getHeight().getValue(screenDimension);
+			}
+			setWidth(sceneWidth-getX());
+			setHeight(sceneHeight-getY());			
+		}
 	}
 		
 	@Override
@@ -44,7 +55,10 @@ public class UIIconView extends UIObjectView {
 		try {
 			
 			Image img = getIconManager().getIcon(icon.getImg());
-			img = img.getScaledInstance(getWidth(),getHeight(), Image.SCALE_SMOOTH);
+			int width = getWidth();
+			int height = getHeight();
+			
+			img = img.getScaledInstance(width,height, Image.SCALE_SMOOTH);
 			g.drawImage(img,x,y , null);
 		}
 		catch (Exception e) {
