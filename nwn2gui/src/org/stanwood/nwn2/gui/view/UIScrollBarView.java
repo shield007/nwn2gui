@@ -65,12 +65,19 @@ public class UIScrollBarView extends UIObjectView {
 		down = getChildWithState(newScrollBar,"down");
 		slider = getChildWithState(newScrollBar,"slider");		
 		back = getChildWithState(newScrollBar,"back");
-		
-		setWidth(up.getWidth());			
-		addChild(up);
-		addChild(down);
-		addChild(back);
-		addChild(slider);
+		if (up!=null) {
+			setWidth(up.getWidth());			
+			addChild(up);
+		}
+		if (down!=null) {
+			addChild(down);
+		}
+		if (back!=null) {
+			addChild(back);
+		}
+		if (slider!=null) {
+			addChild(slider);
+		}
 	}
 	
 	@Override
