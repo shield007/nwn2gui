@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,11 +55,31 @@ public class UIIconView extends UIObjectView {
 		int y = getY();
 		try {
 			
-			Image img = getIconManager().getIcon(icon.getImg());
+			BufferedImage img = getIconManager().getIcon(icon.getImg());
 			int width = getWidth();
 			int height = getHeight();
 			
-			img = img.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+			if (img.getHeight()!= height && img.getWidth()!=width) {				
+				Image newImg = img.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+				img = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
+				Graphics ig = img.getGraphics();
+				ig.drawImage(newImg, 0,0,null);
+			}
+			
+			if (icon.getColor()!=null) {
+				Color colour = getColor(icon.getColor());
+//				Graphics2D imageGraphics = (Graphics2D) img.getGraphics();
+//				for(int w = 0; w < width; w++){
+			  		 for(int h = 0; h < height; h++){
+	//		  			imageGraphics.
+			  			
+//			  			ColorUtil.blend(origin, over);
+//			  			img.setRGB(x, y, rgb);
+	//		  			 img.
+//			  		 }
+				}
+			}
+			
 			g.drawImage(img,x,y , null);
 		}
 		catch (Exception e) {
@@ -66,7 +87,11 @@ public class UIIconView extends UIObjectView {
 			drawMissingIcon(x,y,getWidth(),getHeight(),g);
 		}
 	}
-	
+		
+	private Color getColor(String color) {		
+		return new Color(Integer.parseInt(color, 16));		
+	}
+
 	private void drawMissingIcon(int x,int y,int width,int height,Graphics g) {
 		g.setColor(Color.RED);						
 		 

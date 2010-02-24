@@ -16,7 +16,6 @@
  */
 package org.stanwood.nwn2.gui.icons;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +30,7 @@ public class NWN2IconManager {
 	private static NWN2IconManager instance = null;;
 	
 	private Map<String,String>iconsByName;	
-	private Map<String,Image>iconCache;
+	private Map<String,BufferedImage>iconCache;
 	
 	private NWN2IconManager() {
 		removeAllIcons();		
@@ -81,7 +80,7 @@ public class NWN2IconManager {
 		return instance;
 	}
 
-	public Image getIcon(String name) throws FileNotFoundException, ImageException {
+	public BufferedImage getIcon(String name) throws FileNotFoundException, ImageException {
 		if (iconCache.get(name)==null) {			
 			File iconFile = new File(getIconPath(name));
 			if (iconFile.getName().toLowerCase().endsWith(".tga")) {
@@ -104,6 +103,6 @@ public class NWN2IconManager {
 	
 	public void removeAllIcons() {
 		iconsByName = new HashMap<String,String>();
-		iconCache = new HashMap<String,Image>();
+		iconCache = new HashMap<String,BufferedImage>();
 	}
 }
