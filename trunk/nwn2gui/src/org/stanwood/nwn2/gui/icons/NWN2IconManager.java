@@ -20,8 +20,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 public class NWN2IconManager {
 
@@ -54,6 +57,12 @@ public class NWN2IconManager {
 			String name = parentDir.getName().toLowerCase();					
 			iconsByName.put(name,parentDir.getAbsolutePath());
 		}
+		else if (parentDir.getName().toLowerCase().endsWith(".png")) {
+			String name = parentDir.getName().toLowerCase();
+			name = name.substring(0,name.lastIndexOf('.'));
+			name = name+".tga";
+			iconsByName.put(name,parentDir.getAbsolutePath());
+		}
 	}
 		
 	public String getIconPath(String iconName) throws FileNotFoundException {
@@ -74,9 +83,20 @@ public class NWN2IconManager {
 
 	public Image getIcon(String name) throws FileNotFoundException, ImageException {
 		if (iconCache.get(name)==null) {			
-			File iconFile = new File(getIconPath(name));			
-			BufferedImage img = TgaLoader.loadImage(iconFile);		
-			iconCache.put(name,img);
+			File iconFile = new File(getIconPath(name));
+			if (iconFile.getName().toLowerCase().endsWith(".tga")) {
+				BufferedImage img = TgaLoader.loadImage(iconFile);		
+				iconCache.put(name,img);
+			}
+			else {
+				BufferedImage img;
+				try {
+					img = ImageIO.read(iconFile);
+					iconCache.put(name,img);
+				} catch (IOException e) {
+					throw new ImageException(e.getMessage(),e);
+				}
+			}
 		}
 		return iconCache.get(name);
 	}

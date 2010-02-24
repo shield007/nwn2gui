@@ -122,8 +122,13 @@ public class NWN2ResourceHandler {
 				if (log.isDebugEnabled()) {
 					log.debug("Indexing icon directory: " + iconDir);
 				}
-				NWN2IconManager iconManager = NWN2IconManager.getInstance();
-				iconManager.addIconDir(iconDir);			
+				if (iconDir.exists()) {
+					NWN2IconManager iconManager = NWN2IconManager.getInstance();
+					iconManager.addIconDir(iconDir);
+				}
+				else {
+					log.error("Unable to find icon directory: " + iconDir);
+				}
 			}
 		}
 		catch (IOException e) {
