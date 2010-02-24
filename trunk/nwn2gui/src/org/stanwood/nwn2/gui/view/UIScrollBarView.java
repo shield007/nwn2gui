@@ -83,26 +83,34 @@ public class UIScrollBarView extends UIObjectView {
 	@Override
 	public void positionChanged() {	
 		super.positionChanged();
-		childSetX(up,this.getX());
-		up.setY(this.getY());
-		up.positionChanged();
-		updateChildren(up);
+		if (up!=null) {
+			childSetX(up,this.getX());
+			up.setY(this.getY());
+			up.positionChanged();
+			updateChildren(up);
+		}
 		
-		childSetX(down,this.getX());		
-		down.setY(this.getY()+this.getHeight()-down.getHeight());
-		down.positionChanged();
-		updateChildren(down);
+		if (down!=null) {
+			childSetX(down,this.getX());		
+			down.setY(this.getY()+this.getHeight()-down.getHeight());
+			down.positionChanged();
+			updateChildren(down);
+		}
 		
-		childSetX(slider,this.getX());		
-		slider.setY(this.getY()+(up.getY()+up.getHeight()));
-		slider.positionChanged();
-		updateChildren(slider);
+		if (slider!=null) {
+			childSetX(slider,this.getX());		
+			slider.setY(this.getY()+(up.getY()+up.getHeight()));
+			slider.positionChanged();
+			updateChildren(slider);
+		}
 		
-		childSetX(back,this.getX());		
-		back.setY(up.getY()+up.getHeight());
-		back.setHeight(down.getY()-this.getY() -down.getHeight());
-		back.positionChanged();
-		updateChildren(back);
+		if (back!=null) {
+			childSetX(back,this.getX());		
+			back.setY(up.getY()+up.getHeight());
+			back.setHeight(down.getY()-this.getY() -down.getHeight());
+			back.positionChanged();
+			updateChildren(back);
+		}
 	}
 	
 	private void updateChildren(UIObjectView obj) {
