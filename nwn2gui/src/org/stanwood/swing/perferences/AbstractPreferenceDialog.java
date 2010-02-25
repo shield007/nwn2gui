@@ -58,6 +58,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 	private JXHeader header;
 	private JList lstOptions;
 	private boolean settingsChanged = false;
+	private boolean dirty;
 	
 	public AbstractPreferenceDialog(Frame parent,String title,Settings settings) {
 		super(parent, title, true);		
@@ -192,6 +193,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 		}
 		settings.save();
 		settingsChanged = true;
+		setDirty(false);
 	}
 	
 	public boolean hasSettingsChanged() {
@@ -202,6 +204,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 		for (IOptionsPanel panel : optionPanels) {
 			panel.loadSettings(settings);
 		}
+		setDirty(false);
 	}
 
 	@Override
@@ -221,5 +224,21 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 		IOptionsPanel optPanel = optionPanels.get(index);
 		optionPanelLayout.show(mainArea, optPanel.getPanelName());
 		header.setDescription(optPanel.getDescription());
+	}
+	
+	protected boolean isDirty() {
+		return dirty;
+	}
+	
+	protected void setDirty(boolean dirty) {
+		this.dirty = dirty;
+		if (dirty==true) {
+			cmdApply.setEnabled(true);
+			cmdOk.setEnabled(true);
+		}
+		else {
+			cmdApply.setEnabled(false);
+			cmdOk.setEnabled(false);
+		}
 	}
 }

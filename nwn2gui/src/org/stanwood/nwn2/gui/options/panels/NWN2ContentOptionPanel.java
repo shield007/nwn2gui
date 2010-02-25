@@ -25,15 +25,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileFilter;
 
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.swing.FileChooseWidget;
 import org.stanwood.swing.FileListWidget;
 import org.stanwood.swing.perferences.AbstractOptionPanel;
+import org.stanwood.swing.perferences.AbstractPreferenceDialog;
 import org.stanwood.swing.perferences.Settings;
 
 public class NWN2ContentOptionPanel extends AbstractOptionPanel {
+
+	public NWN2ContentOptionPanel(AbstractPreferenceDialog parentDialog) {
+		super(parentDialog);
+	}
 
 	private static final long serialVersionUID = -188846817682510395L;
 	
@@ -49,9 +58,43 @@ public class NWN2ContentOptionPanel extends AbstractOptionPanel {
         Box box = Box.createVerticalBox();
         JLabel lblGameDir = new JLabel("Neverwinter Nights 2 Game Directory:");
         box.add(lblGameDir);
-        txtNWN2Dir = new FileChooseWidget(JFileChooser.DIRECTORIES_ONLY);        
+        txtNWN2Dir = new FileChooseWidget(JFileChooser.DIRECTORIES_ONLY);
+        txtNWN2Dir.addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				makeDirty(true);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				makeDirty(true);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				makeDirty(true);
+			}
+		});
         box.add(txtNWN2Dir);
         box.add(new JSeparator(SwingConstants.HORIZONTAL));
+        
+        ListDataListener listListener = new ListDataListener() {
+			@Override
+			public void contentsChanged(ListDataEvent e) {
+				makeDirty(true);				
+			}
+
+			@Override
+			public void intervalAdded(ListDataEvent e) {
+				makeDirty(true);
+			}
+
+			@Override
+			public void intervalRemoved(ListDataEvent e) {
+				makeDirty(true);
+			}			        
+        };
                 
         tlkList = new FileListWidget("TLK Files:", JFileChooser.FILES_ONLY, new FileFilter() {			
 			@Override
@@ -64,12 +107,17 @@ public class NWN2ContentOptionPanel extends AbstractOptionPanel {
 				return f.isDirectory() || f.getName().toLowerCase().endsWith(".tlk");
 			}
 		});
+        tlkList.addListDataListener(listListener);
         box.add(tlkList);
         
         iconList = new FileListWidget("Root icon directories:", JFileChooser.DIRECTORIES_ONLY, null); 
         box.add(iconList);
+        iconList.addListDataListener(listListener);
+        
+      
         
         fontList = new FileListWidget("Font directories:", JFileChooser.DIRECTORIES_ONLY, null);
+        fontList.addListDataListener(listListener);
         box.add(fontList);
         box.add(Box.createVerticalGlue());
         

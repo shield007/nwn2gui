@@ -29,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -138,5 +139,9 @@ public class FileListWidget extends JPanel {
 
 	public void setFiles(List<File> fileList) {
 		fileListModel.setFiles(fileList);				
+	}
+	
+	public void addListDataListener(ListDataListener listener) {
+		fileListModel.addListDataListener(listener);
 	}
 }

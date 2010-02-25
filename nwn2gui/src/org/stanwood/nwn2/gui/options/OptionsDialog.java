@@ -33,7 +33,7 @@ public class OptionsDialog extends AbstractPreferenceDialog {
 
 	@Override
 	protected void addPreferencePanels() {
-		addPreferencePanel(new NWN2ContentOptionPanel());
-		addPreferencePanel(new LookFeelOptionPanel());
+		addPreferencePanel(new NWN2ContentOptionPanel(this));
+		addPreferencePanel(new LookFeelOptionPanel(this));
 	}
 }
