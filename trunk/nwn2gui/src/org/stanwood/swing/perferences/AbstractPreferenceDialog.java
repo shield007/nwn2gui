@@ -34,6 +34,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.event.ListSelectionEvent;
@@ -178,6 +179,16 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 
 	@Override
 	public void cancel() {
+		if (isDirty()) {
+			if (JOptionPane.showConfirmDialog(
+					this,
+					"Their are unsaved changes, are you sure you want to close the dailog without saving them?",
+					"About current changes?",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.WARNING_MESSAGE) != JOptionPane.YES_OPTION) {
+				return;
+			}
+		}
 		dispose();
 	}
 
