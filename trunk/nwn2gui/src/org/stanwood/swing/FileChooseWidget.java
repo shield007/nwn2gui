@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 
 public class FileChooseWidget extends JPanel {
@@ -57,7 +58,13 @@ public class FileChooseWidget extends JPanel {
 		cmdBrowse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
+				JFileChooser fc = null;
+				if (getFile().exists() && getFile().isDirectory() ) {
+					fc = new JFileChooser(getFile());
+				}
+				else {
+					fc = new JFileChooser();
+				}
 				fc.setFileSelectionMode(mode);
 				if (fileFilter!=null) {
 					fc.setFileFilter(fileFilter);
@@ -74,10 +81,16 @@ public class FileChooseWidget extends JPanel {
 	}
 
 	public void setFile(File file) {
-		txtFile.setText(file.getAbsolutePath());
+		txtFile.setText(file.getAbsolutePath());		
 	}
 
 	public File getFile() {
 		return new File(txtFile.getText());
 	}
+	
+	public void addDocumentListener(DocumentListener listener) {
+		txtFile.getDocument().addDocumentListener(listener);		
+	}
+	
+	
 }

@@ -19,6 +19,8 @@ package org.stanwood.swing.perferences.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
@@ -31,9 +33,14 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.stanwood.swing.LabelledItemPanel;
 import org.stanwood.swing.perferences.AbstractOptionPanel;
+import org.stanwood.swing.perferences.AbstractPreferenceDialog;
 import org.stanwood.swing.perferences.Settings;
 
 public class LookFeelOptionPanel extends AbstractOptionPanel {
+	
+	public LookFeelOptionPanel(AbstractPreferenceDialog parentDialog) {
+		super(parentDialog);
+	}
 
 	private DefaultComboBoxModel lafModel;
 
@@ -50,8 +57,7 @@ public class LookFeelOptionPanel extends AbstractOptionPanel {
 		LookAndFeelInfo[] lafs = UIManager.getInstalledLookAndFeels();
 		if (lafs!=null) {
 			for (LookAndFeelInfo laf : lafs) {
-				lafModel.addElement(laf);
-				
+				lafModel.addElement(laf);				
 			}
 		}	
 		cboLookAndFeel.setRenderer(new DefaultListCellRenderer() {
@@ -65,13 +71,19 @@ public class LookFeelOptionPanel extends AbstractOptionPanel {
 				if (value instanceof LookAndFeelInfo) {
 					LookAndFeelInfo laf = (LookAndFeelInfo)value;					
 					return super.getListCellRendererComponent(list, laf.getName(), index, isSelected, cellHasFocus);
-				}
+				}				
 				else {
 					return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				}
 			}
 		});
 		
+		cboLookAndFeel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				makeDirty(true);
+			}			
+		});
 		
 		box.add(panel);
 		box.add(Box.createVerticalGlue());

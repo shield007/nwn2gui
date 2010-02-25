@@ -25,5 +25,5 @@ public interface IOptionsPanel {
 	void loadSettings(Settings settings);
 
 	void saveSettings(Settings settings);
-
+		
 }
