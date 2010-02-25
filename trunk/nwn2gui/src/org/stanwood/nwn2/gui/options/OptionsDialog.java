@@ -18,9 +18,9 @@ package org.stanwood.nwn2.gui.options;
 
 import java.awt.Frame;
 
-import org.stanwood.nwn2.gui.options.panels.ApperanceOptionPanel;
 import org.stanwood.nwn2.gui.options.panels.NWN2ContentOptionPanel;
 import org.stanwood.swing.perferences.AbstractPreferenceDialog;
+import org.stanwood.swing.perferences.panels.LookFeelOptionPanel;
 
 
 public class OptionsDialog extends AbstractPreferenceDialog {
@@ -34,6 +34,6 @@ public class OptionsDialog extends AbstractPreferenceDialog {
 	@Override
 	protected void addPreferencePanels() {
 		addPreferencePanel(new NWN2ContentOptionPanel());
-		addPreferencePanel(new ApperanceOptionPanel());
+		addPreferencePanel(new LookFeelOptionPanel());
 	}
 }

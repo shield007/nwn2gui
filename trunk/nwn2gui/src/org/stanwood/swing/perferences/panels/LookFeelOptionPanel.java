@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.stanwood.nwn2.gui.options.panels;
+package org.stanwood.swing.perferences.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -29,12 +29,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
 import org.stanwood.swing.LabelledItemPanel;
 import org.stanwood.swing.perferences.AbstractOptionPanel;
 import org.stanwood.swing.perferences.Settings;
 
-public class ApperanceOptionPanel extends AbstractOptionPanel {
+public class LookFeelOptionPanel extends AbstractOptionPanel {
 
 	private DefaultComboBoxModel lafModel;
 
@@ -52,6 +51,7 @@ public class ApperanceOptionPanel extends AbstractOptionPanel {
 		if (lafs!=null) {
 			for (LookAndFeelInfo laf : lafs) {
 				lafModel.addElement(laf);
+				
 			}
 		}	
 		cboLookAndFeel.setRenderer(new DefaultListCellRenderer() {
@@ -63,7 +63,7 @@ public class ApperanceOptionPanel extends AbstractOptionPanel {
 			        boolean isSelected,
 			        boolean cellHasFocus) {
 				if (value instanceof LookAndFeelInfo) {
-					LookAndFeelInfo laf = (LookAndFeelInfo)value;
+					LookAndFeelInfo laf = (LookAndFeelInfo)value;					
 					return super.getListCellRendererComponent(list, laf.getName(), index, isSelected, cellHasFocus);
 				}
 				else {
@@ -80,17 +80,17 @@ public class ApperanceOptionPanel extends AbstractOptionPanel {
 
 	@Override
 	public String getDescription() {
-		return "Application apperance settings";
+		return "Application look and feel settings";
 	}
 
 	@Override
 	public String getPanelName() {
-		return "Apperance";
+		return "Look & Feel";
 	}
 
 	@Override
 	public void loadSettings(Settings settings) {		
-		String lafName = NWN2GuiSettings.getInstance().getLookAndFeel(UIManager.getLookAndFeel().getClass().getName());
+		String lafName = settings.getLookAndFeel(UIManager.getLookAndFeel().getClass().getName());
 		for (int i=0;i<lafModel.getSize();i++) {
 			LookAndFeelInfo laf = (LookAndFeelInfo) lafModel.getElementAt(i);
 			if (laf.getClassName().equals(lafName)) {
@@ -102,6 +102,6 @@ public class ApperanceOptionPanel extends AbstractOptionPanel {
 
 	public void saveSettings(Settings settings) {
 		LookAndFeelInfo laf = (LookAndFeelInfo) lafModel.getSelectedItem();		
-		NWN2GuiSettings.getInstance().setLookAndFeel(laf.getClassName());
+		settings.setLookAndFeel(laf.getClassName());
 	}	
 }

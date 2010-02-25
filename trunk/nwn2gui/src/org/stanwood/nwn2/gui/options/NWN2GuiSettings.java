@@ -26,8 +26,7 @@ public class NWN2GuiSettings extends Settings {
 	
 	public static final File DEFAULT_NWN2_DIR = new File("C:"+File.separator+"Games"+File.separator+"Neverwinter Nights 2");
 	private final static String PROP_GUI_FILE_LIST  ="PROP_GUI_FILE_LIST";
-	private static final String PROP_GUI_LAST_BROWSE_DIR = "PROP_GUI_LAST_BROWSE_DIR";
-	private static final String PROP_LOOK_AND_FEEL = "PROP_LOOK_AND_FEEL";
+	private static final String PROP_GUI_LAST_BROWSE_DIR = "PROP_GUI_LAST_BROWSE_DIR";	
 	private static final String PROP_NWN2_DIR = "PROP_NWN2_DIR";	
 	public static final String PROP_EXTRA_TLKS = "PROP_EXTRA_TLKS";
 	public static final String PROP_EXTRA_FONT_DIRS = "PROP_EXTRA_FONT_DIRS";
@@ -41,6 +40,7 @@ public class NWN2GuiSettings extends Settings {
 		super();
 	}
 	
+	@Override
 	protected File getPropertiesPath() {
 		File f = new File(System.getProperty("user.home"));
 		f = new File(f,".nwn2gui");
@@ -71,15 +71,7 @@ public class NWN2GuiSettings extends Settings {
 	public void setGUIXMLBrowseDirLastDir(File dir) { 
 		setString(PROP_GUI_LAST_BROWSE_DIR, dir.getAbsolutePath());
 	}
-
-	public void setLookAndFeel(String className) {
-		setString(PROP_LOOK_AND_FEEL, className);
-	}
 	
-	public String getLookAndFeel(String defaultValue) {
-		return getString(PROP_LOOK_AND_FEEL,defaultValue);
-	}
-
 	public File getNWN2Dir(File defaultValue) {
 		return new File(getString(PROP_NWN2_DIR,defaultValue.getAbsolutePath()));
 	}
