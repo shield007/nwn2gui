@@ -29,6 +29,9 @@ import org.apache.commons.logging.LogFactory;
 
 
 public abstract class Settings {
+	
+	private static final String PROP_LOOK_AND_FEEL = "PROP_LOOK_AND_FEEL";
+	
 	private final static Log log = LogFactory.getLog(Settings.class);
 	private final static Properties props = new Properties();
 		
@@ -152,5 +155,12 @@ public abstract class Settings {
 			}
 		}	
 	}	
+
+	public void setLookAndFeel(String className) {
+		setString(PROP_LOOK_AND_FEEL, className);
+	}
 	
+	public String getLookAndFeel(String defaultValue) {
+		return getString(PROP_LOOK_AND_FEEL,defaultValue);
+	}
 }
