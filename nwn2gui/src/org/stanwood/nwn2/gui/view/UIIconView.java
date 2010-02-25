@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jdesktop.swingx.color.ColorUtil;
 import org.stanwood.nwn2.gui.model.UIIcon;
 import org.stanwood.nwn2.gui.model.UIScene;
 
@@ -53,8 +54,7 @@ public class UIIconView extends UIObjectView {
 	public void paintUIObject(Graphics g) {
 		int x = getX();
 		int y = getY();
-		try {
-			
+		try {			
 			BufferedImage img = getIconManager().getIcon(icon.getImg());
 			int width = getWidth();
 			int height = getHeight();
@@ -68,15 +68,11 @@ public class UIIconView extends UIObjectView {
 			
 			if (icon.getColor()!=null) {
 				Color colour = getColor(icon.getColor());
-//				Graphics2D imageGraphics = (Graphics2D) img.getGraphics();
-//				for(int w = 0; w < width; w++){
-			  		 for(int h = 0; h < height; h++){
-	//		  			imageGraphics.
-			  			
-//			  			ColorUtil.blend(origin, over);
-//			  			img.setRGB(x, y, rgb);
-	//		  			 img.
-//			  		 }
+				for(int w = 0; w < img.getWidth(); w++){
+			  		 for(int h = 0; h < img.getHeight(); h++){			  			
+			  			Color rgb = ColorUtil.blend(new Color(img.getRGB(w, h)), colour);
+			  			img.setRGB(w, h, rgb.getRGB());
+			  		 }
 				}
 			}
 			
