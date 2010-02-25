@@ -19,6 +19,8 @@ package org.stanwood.nwn2.gui.options;
 import java.io.File;
 import java.util.List;
 
+import org.stanwood.swing.perferences.Settings;
+
 public class NWN2GuiSettings extends Settings {
 
 	
