@@ -32,11 +32,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.stanwood.swing.LabelledItemPanel;
-import org.stanwood.swing.perferences.AbstractOptionPanel;
+import org.stanwood.swing.perferences.AbstractPreferencePanel;
 import org.stanwood.swing.perferences.AbstractPreferenceDialog;
 import org.stanwood.swing.perferences.Settings;
 
-public class LookFeelOptionPanel extends AbstractOptionPanel {
+public class LookFeelOptionPanel extends AbstractPreferencePanel {
 	
 	public LookFeelOptionPanel(AbstractPreferenceDialog parentDialog) {
 		super(parentDialog);

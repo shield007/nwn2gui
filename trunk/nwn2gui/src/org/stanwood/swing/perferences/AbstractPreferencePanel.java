@@ -23,12 +23,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public abstract class AbstractOptionPanel extends JPanel implements IOptionsPanel {
+public abstract class AbstractPreferencePanel extends JPanel implements IPreferencePanel {
 
 	private static final long serialVersionUID = -8526220764053684079L;
 	private AbstractPreferenceDialog parentDialog;
 
-	public AbstractOptionPanel(AbstractPreferenceDialog parentDialog) {		
+	public AbstractPreferencePanel(AbstractPreferenceDialog parentDialog) {		
 		this.parentDialog = parentDialog;
 		init();
 		

@@ -16,7 +16,7 @@
  */
 package org.stanwood.swing.perferences;
 
-public interface IOptionsPanel {
+public interface IPreferencePanel {
 	
 	public String getPanelName();
 	

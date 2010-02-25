@@ -51,7 +51,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 	private JButton cmdCancel;
 	private JButton cmdOk;
 	private JSplitPane splitPane;
-	private List<IOptionsPanel> optionPanels = new ArrayList<IOptionsPanel>();
+	private List<IPreferencePanel> optionPanels = new ArrayList<IPreferencePanel>();
 	private Settings settings;
 	private JPanel mainArea;
 	private CardLayout optionPanelLayout;
@@ -79,7 +79,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 
 	protected abstract void addPreferencePanels();
 	
-	protected void addPreferencePanel(AbstractOptionPanel optionsPanel) {
+	protected void addPreferencePanel(AbstractPreferencePanel optionsPanel) {
 		optionPanels.add(optionsPanel);
 		mainArea.add(optionsPanel,optionsPanel.getPanelName());		
 	}
@@ -129,8 +129,8 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 			public Component getListCellRendererComponent(JList list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
-				if (value instanceof IOptionsPanel) {
-					value =((IOptionsPanel) value).getPanelName();
+				if (value instanceof IPreferencePanel) {
+					value =((IPreferencePanel) value).getPanelName();
 				}
 				return super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
 
@@ -188,7 +188,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 	}
 
 	private void apply() {
-		for (IOptionsPanel panel : optionPanels) {
+		for (IPreferencePanel panel : optionPanels) {
 			panel.saveSettings(settings);
 		}
 		settings.save();
@@ -201,7 +201,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 	}
 	
 	private void loadSettings() {
-		for (IOptionsPanel panel : optionPanels) {
+		for (IPreferencePanel panel : optionPanels) {
 			panel.loadSettings(settings);
 		}
 		setDirty(false);
@@ -221,7 +221,7 @@ public abstract class AbstractPreferenceDialog extends EnhancedDialog implements
 
 	private void selectionChanged() {
 		int index = lstOptions.getSelectedIndex();
-		IOptionsPanel optPanel = optionPanels.get(index);
+		IPreferencePanel optPanel = optionPanels.get(index);
 		optionPanelLayout.show(mainArea, optPanel.getPanelName());
 		header.setDescription(optPanel.getDescription());
 	}
