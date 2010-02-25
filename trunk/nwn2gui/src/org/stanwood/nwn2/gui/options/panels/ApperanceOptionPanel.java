@@ -29,10 +29,10 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import org.stanwood.nwn2.gui.options.AbstractOptionPanel;
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
-import org.stanwood.nwn2.gui.options.Settings;
 import org.stanwood.swing.LabelledItemPanel;
+import org.stanwood.swing.perferences.AbstractOptionPanel;
+import org.stanwood.swing.perferences.Settings;
 
 public class ApperanceOptionPanel extends AbstractOptionPanel {
 

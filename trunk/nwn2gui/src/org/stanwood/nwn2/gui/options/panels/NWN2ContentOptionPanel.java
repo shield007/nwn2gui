@@ -27,11 +27,11 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
 
-import org.stanwood.nwn2.gui.options.AbstractOptionPanel;
 import org.stanwood.nwn2.gui.options.NWN2GuiSettings;
-import org.stanwood.nwn2.gui.options.Settings;
 import org.stanwood.swing.FileChooseWidget;
 import org.stanwood.swing.FileListWidget;
+import org.stanwood.swing.perferences.AbstractOptionPanel;
+import org.stanwood.swing.perferences.Settings;
 
 public class NWN2ContentOptionPanel extends AbstractOptionPanel {
 
